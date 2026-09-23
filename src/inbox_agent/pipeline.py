@@ -62,9 +62,19 @@ class InboxPipeline:
         if self.version != "v0":
             gw_flags = gateway_mod.scan(email, self.identity).flags
 
-        # 2. The reasoning node.
-        result = self.agent.invoke({"messages": [{"role": "user", "content": render_email(email)}]})
+        # 2. The reasoning node. In v1 the system-resolved sender profile is
+        # injected ahead of the model so it never guesses about identity.
+        content = render_email(email)
+        if self.version != "v0":
+            content = f"[Sender profile] {self.identity.describe(email.get('from_email', ''), email.get('from_name', ''))}\n{content}"
+        result = self.agent.invoke({"messages": [{"role": "user", "content": content}]})
         decision: Decision = extract_decision(result)
+
+        # v1: the model delegates by NAME; code resolves it to a verified
+        # address (v0 hallucinated addresses). Unresolvable delegate -> None,
+        # which the eval will catch rather than an invented domain slipping by.
+        if self.version != "v0" and decision.delegate_to:
+            decision.delegate_to = self.identity.resolve_delegate(decision.delegate_to)
         tool_calls = [
             {"name": tc["name"], "args": tc["args"]}
             for m in result["messages"]

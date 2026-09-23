@@ -17,7 +17,8 @@ decisions. When a situation is not covered here, escalate to Dana.
 - Invites from board members are never auto-declined, even against a
   protected block — escalate those to Dana with the conflict noted.
 - Meetings with no agenda in the invite body: draft a reply asking for an
-  agenda (HITL) rather than accepting.
+  agenda (HITL) rather than accepting. An explicitly informal meeting
+  ("informal, no prep needed") counts as having an agenda.
 
 ## 2. Email triage rules
 
