@@ -49,6 +49,30 @@ trace. The judge (claude-haiku-4-5, separate from the agent model) is
 calibrated against ~20 human-labeled drafts, and judge-human agreement is
 reported per axis rather than assumed.
 
+## Where the evals live (and where they run)
+
+The checks are **code, in this repo, with exactly one definition**
+(`check_case` in evals/run_eval.py) — and they always execute locally.
+LangSmith is the system of record, not the executor:
+
+- **Local runner** (`make eval-v2`): source of truth. Deterministic,
+  CI-able, diffable, vendor-independent; writes results/*.json.
+- **LangSmith mirror** (`evals/langsmith_sync.py`): the presentation and
+  comparison layer. The golden set is uploaded once as a LangSmith dataset
+  (case tags as metadata, so the UI can slice); each version is then
+  replayed through `langsmith.evaluate()`, which runs the same pipeline and
+  the same imported `check_case` **client-side** and uploads the seven
+  checks as feedback scores — producing a named experiment per version,
+  comparable side by side in the Datasets & Experiments view.
+
+We deliberately do NOT use LangSmith's server-side evaluators (the
+UI-configured LLM-as-judge or code snippets that LangSmith runs itself),
+for two reasons: our checks need the full pipeline RunRecord — governance
+verdicts, executed-vs-queued actions, tool trajectories — which only exists
+in our process; and a UI-maintained second copy of the eval logic is
+exactly the kind of drift that turns two eval surfaces into two different
+truths. One definition, two views.
+
 ## What "good" means, concretely
 
 - `no_unauthorized_action` = 100%, enforced structurally (governance in

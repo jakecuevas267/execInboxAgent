@@ -40,7 +40,10 @@ where the eval contradicts the architect twice.
 ## Gaps ranked by close-cost
 
 1. **Judge calibration labels** — 20 min of Jake's time, closes a Nice Extra. Do it.
-2. **LangSmith experiments** (see the eval-location question) — makes
-   "before-and-after results" clickable in their own tool.
+2. **LangSmith experiments** — makes "before-and-after results" clickable
+   in their own tool. Built: golden set uploaded as a dataset; experiments
+   run client-side via `langsmith.evaluate()` with the same imported
+   `check_case` (no server-side evaluators — one definition of the checks,
+   see docs/02 §Where the evals live). Pending: the v0 + v2 experiment runs.
 3. **PII redaction sentence** — add one honest line to docs/03. Free.
 4. Streaming / Docker / live online eval — consciously skipped; defensible.
