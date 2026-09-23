@@ -48,8 +48,10 @@ class GatewayReport:
     matched: tuple = field(default_factory=tuple)  # (flag, pattern) pairs for the audit log
 
 
-def scan(email: dict, identity: IdentityService) -> GatewayReport:
-    """email keys: from_name, from_email, subject, body, optional invite."""
+def scan(email: dict, identity: IdentityService, level: int = 1) -> GatewayReport:
+    """email keys: from_name, from_email, subject, body, optional invite.
+
+    level 1 = v1 scan; level >= 2 adds the v2 thin-content guard."""
     text = " ".join([
         email.get("subject", ""),
         email.get("body", ""),
@@ -75,5 +77,10 @@ def scan(email: dict, identity: IdentityService) -> GatewayReport:
     resolved = identity.resolve(email.get("from_email", ""), email.get("from_name", ""))
     if resolved.display_name_spoof:
         flags.add("spoof_suspected")
+
+    # v2: a near-empty message can't be classified with confidence, so it
+    # must never be silently auto-archived (a13: empty "quick call?").
+    if level >= 2 and len(email.get("body", "").strip()) < 20:
+        flags.add("insufficient_content")
 
     return GatewayReport(frozenset(flags), tuple(matched))

@@ -95,7 +95,7 @@ def summarize(rows: list[dict]) -> None:
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--version", choices=["v0", "v1"], required=True)
+    ap.add_argument("--version", choices=["v0", "v1", "v2"], required=True)
     ap.add_argument("--limit", type=int)
     ap.add_argument("--ids", nargs="*")
     args = ap.parse_args()

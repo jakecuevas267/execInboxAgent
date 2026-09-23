@@ -58,15 +58,17 @@ class InboxPipeline:
 
     def run_email(self, case_id: str, email: dict) -> RunRecord:
         # 1. Gateway scan (hardened pipeline only).
+        level = {"v0": 0, "v1": 1}.get(self.version, 2)
         gw_flags: frozenset = frozenset()
-        if self.version != "v0":
-            gw_flags = gateway_mod.scan(email, self.identity).flags
+        if level >= 1:
+            gw_flags = gateway_mod.scan(email, self.identity, level=level).flags
 
         # 2. The reasoning node. In v1 the system-resolved sender profile is
         # injected ahead of the model so it never guesses about identity.
         content = render_email(email)
-        if self.version != "v0":
-            content = f"[Sender profile] {self.identity.describe(email.get('from_email', ''), email.get('from_name', ''))}\n{content}"
+        if level >= 1:
+            profile = self.identity.describe(email.get('from_email', ''), email.get('from_name', ''), level=level)
+            content = f"[Sender profile] {profile}\n{content}"
         result = self.agent.invoke({"messages": [{"role": "user", "content": content}]})
         decision: Decision = extract_decision(result)
 

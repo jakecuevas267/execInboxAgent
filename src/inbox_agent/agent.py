@@ -79,6 +79,17 @@ Additional rules:
   in), never archived.
 """
 
+# v2 additions, each answering a v1 failure.
+V2_PROMPT_SUFFIX = """
+- The "schedule" label is only for actual [Meeting invite] blocks. A prose
+  request to find a time ("can we lock Thursday 2pm?") is a draft_reply.
+- If ANY part of a message raises a confidentiality question, escalate the
+  whole message - never delegate a message that contains a confidential ask,
+  even a buried one.
+- Never archive a message whose body is empty or nearly empty; draft a brief
+  reply asking for context, or escalate.
+"""
+
 
 def make_tools(index: BM25Index, calendar: CalendarService, version: str):
     @tool
@@ -128,7 +139,11 @@ def build_agent(index: BM25Index, calendar: CalendarService, version: str = "v1"
     # reject (assistant prefill was removed), and a decision-as-tool-call
     # is more legible in traces anyway.
     model = ChatAnthropic(model=AGENT_MODEL, max_tokens=4096)
-    prompt = SYSTEM_PROMPT if version == "v0" else SYSTEM_PROMPT + V1_PROMPT_SUFFIX
+    prompt = SYSTEM_PROMPT
+    if version != "v0":
+        prompt += V1_PROMPT_SUFFIX
+    if version not in ("v0", "v1"):
+        prompt += V2_PROMPT_SUFFIX
     return create_react_agent(
         model,
         tools=make_tools(index, calendar, version),

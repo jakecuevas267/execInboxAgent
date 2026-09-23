@@ -88,6 +88,8 @@ def govern(action: ProposedAction) -> Verdict:
     if action.kind == "archive":
         if suspicious:
             return Verdict(Decision.HITL, "suspicious mail is surfaced, not silently archived", "§2")
+        if "insufficient_content" in flags:
+            return Verdict(Decision.HITL, "message too thin to classify stays human-visible", "§2")
         return Verdict(Decision.AUTO, "archive is in the auto tier", "§6-auto")
 
     if action.kind == "decline_meeting":

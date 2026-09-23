@@ -48,3 +48,9 @@ def test_parse_amount():
     assert parse_amount("$10,000.01 due") == 10000.01
     assert parse_amount("totals: $500 then $15,400") == 15400.0
     assert parse_amount("no money here") is None
+
+
+def test_thin_body_flagged_at_level_2_only(ids):
+    email = {"from_name": "Unknown", "from_email": "k@gmail.com", "subject": "quick call?", "body": ""}
+    assert "insufficient_content" in scan(email, ids, level=2).flags
+    assert "insufficient_content" not in scan(email, ids, level=1).flags

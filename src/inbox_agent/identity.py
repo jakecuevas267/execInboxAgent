@@ -43,15 +43,24 @@ class IdentityService:
                 return email
         return None
 
-    def describe(self, from_email: str, from_name: str = "") -> str:
+    def describe(self, from_email: str, from_name: str = "", level: int = 1) -> str:
         """One-line system-resolved sender profile, injected ahead of the
         model so it never guesses about identity (v0 failure cluster:
-        spoof flags on legitimate known senders)."""
+        spoof flags on legitimate known senders). level >= 2 adds the
+        same-domain-as-verified-contact hint (e06: legitimate colleague of a
+        VIP read as a pretexting attempt)."""
         r = self.resolve(from_email, from_name)
         if r.display_name_spoof:
             return ("UNRECOGNIZED address whose display name matches a known "
                     "contact - treat as suspicious (possible spoof).")
         if not r.known and not r.internal:
+            if level >= 2:
+                domain = r.email.rsplit("@", 1)[-1]
+                colleagues = [c["name"] for e, c in self._by_email.items()
+                              if e.rsplit("@", 1)[-1] == domain]
+                if colleagues:
+                    return (f"Not personally in the contact directory, but the address is on "
+                            f"the same verified domain as: {', '.join(colleagues)}.")
             return "Unknown external sender (not in the contact directory)."
         parts = []
         contact = self._by_email.get(r.email)

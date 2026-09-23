@@ -24,3 +24,6 @@ demo:
 	$(PY) evals/run_eval.py --version v1 --ids n09 a01 n06
 
 .PHONY: setup test retrieval-eval eval-v0 eval-v1 judge demo
+eval-v2:
+	$(PY) evals/run_eval.py --version v2
+

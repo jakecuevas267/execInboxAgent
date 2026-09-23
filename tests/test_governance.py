@@ -90,3 +90,8 @@ def test_governance_table(name, action, expected):
 def test_verdicts_always_cite_policy_and_reason():
     v = govern(ProposedAction("archive", UNKNOWN))
     assert v.reason and v.policy_ref
+
+
+def test_archive_with_insufficient_content_is_hitl():
+    v = govern(ProposedAction("archive", UNKNOWN, flags=frozenset({"insufficient_content"})))
+    assert v.decision == Decision.HITL
