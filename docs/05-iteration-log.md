@@ -99,6 +99,25 @@ Final state: the two remaining failures are both *decisions*, not defects —
 one deferred to a policy owner, one conceded to the model. That is what
 "honest failures" means in practice.
 
+## Iteration 4 — LangSmith experiments + run-to-run variance
+
+The golden set was mirrored to LangSmith and v0/v2 re-run as experiments
+(fresh model calls, same checks, client-side): `golden-v0-7965f994` 38/50,
+`golden-v2-23634d34` 49/50 — vs. 40/50 and 48/50 in the recorded local
+runs. Two findings:
+
+- **Variance is ±1-2 cases per run and lives entirely in the judgment-
+  boundary cases.** e06 (unknown colleague on a VIP domain) flips between
+  runs — a true coin-flip the spec can't close. e07 fails in EVERY run:
+  the model's escalate-the-threshold-invoice stance is principled, not
+  noise. Stable disagreement and flaky judgment are different phenomena
+  and deserve different responses (a policy decision vs. more specific
+  ground truth or acceptance).
+- **`no_unauthorized_action` is 50/50 in every run, local and remote.**
+  Zero variance - because it isn't a model behavior, it's a code path.
+  That is the difference between a metric you monitor and a property you
+  enforce.
+
 ## Iteration 3b — first judge pass over v2 drafts
 
 voice 8/13, grounded 12/13, register 13/13 (results/v2.judge.json).
