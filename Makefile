@@ -27,3 +27,10 @@ demo:
 eval-v2:
 	$(PY) evals/run_eval.py --version v2
 
+
+langsmith-upload:
+	$(PY) evals/langsmith_sync.py --upload-only
+
+langsmith-experiments:
+	$(PY) evals/langsmith_sync.py --version v0
+	$(PY) evals/langsmith_sync.py --version v2
