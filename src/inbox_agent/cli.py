@@ -1,0 +1,111 @@
+"""Interactive triage: run ONE arbitrary email through the full pipeline.
+
+The live-demo surface. The interviewer invents an email ("Sam asks to move
+money"), you run it, and the full journey prints: gateway flags, tool
+trajectory, the model's decision, the governance verdict with its policy
+citation, and what actually executed vs. queued.
+
+Usage:
+    make triage                                   # interactive prompts
+    .venv/bin/python -m inbox_agent.cli --file demo/email.json
+    ... --version v0                              # compare naive behavior live
+"""
+
+import argparse
+import json
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent.parent
+
+BOLD, DIM, RESET = "\033[1m", "\033[2m", "\033[0m"
+GREEN, YELLOW, RED = "\033[32m", "\033[33m", "\033[31m"
+
+VERDICT_STYLE = {
+    "auto": (GREEN, "AUTO - executed without approval"),
+    "hitl": (YELLOW, "HITL - queued for Dana's approval"),
+    "deny": (RED, "DENY - refused by governance"),
+}
+
+
+def prompt_email() -> dict:
+    print(f"{BOLD}Enter the email (blank line to finish the body):{RESET}")
+    email = {
+        "from_name": input("  From (name): ").strip(),
+        "from_email": input("  From (address): ").strip(),
+        "subject": input("  Subject: ").strip(),
+    }
+    print("  Body:")
+    lines = []
+    while (line := sys.stdin.readline().rstrip("\n")) != "":
+        lines.append(line)
+    email["body"] = "\n".join(lines)
+    if input("  Meeting invite? [y/N]: ").strip().lower() == "y":
+        email["invite"] = {
+            "date": input("    Date (YYYY-MM-DD): ").strip(),
+            "start": input("    Start (HH:MM): ").strip(),
+            "end": input("    End (HH:MM): ").strip(),
+            "location": input("    Location (optional): ").strip() or "n/a",
+        }
+    return email
+
+
+def show(record, identity, email) -> None:
+    print(f"\n{BOLD}=== Gateway ==={RESET}")
+    print(f"  sender profile: {identity.describe(email.get('from_email', ''), email.get('from_name', ''), level=2)}")
+    print(f"  flags: {record.gateway_flags or ['(none)']}")
+
+    print(f"\n{BOLD}=== Agent trajectory ==={RESET}")
+    for tc in record.tool_calls:
+        arg_str = json.dumps(tc["args"])
+        print(f"  -> {tc['name']}({arg_str[:90]}{'...' if len(arg_str) > 90 else ''})")
+
+    d = record.decision
+    print(f"\n{BOLD}=== Decision (model proposes) ==={RESET}")
+    print(f"  triage: {d['triage_label']}   action: {d['action_kind']}   model flags: {d['flags'] or '(none)'}")
+    print(f"  rationale: {d['rationale']}")
+    if d.get("delegate_to"):
+        print(f"  delegate to (code-resolved): {d['delegate_to']}")
+    if d.get("draft_text"):
+        print(f"\n{DIM}--- draft ---{RESET}\n{d['draft_text']}\n{DIM}-------------{RESET}")
+
+    print(f"\n{BOLD}=== Facts resolved in code ==={RESET}")
+    print(f"  protected-block conflict: {record.resolved_conflict}   parsed amount: {record.resolved_amount}")
+
+    color, label = VERDICT_STYLE[record.verdict_decision]
+    print(f"\n{BOLD}=== Governance (code disposes) ==={RESET}")
+    print(f"  {color}{BOLD}{label}{RESET}")
+    print(f"  reason: {record.verdict_reason}  {DIM}[policy {record.verdict_policy_ref}]{RESET}")
+
+    print(f"\n{BOLD}=== Outcome ==={RESET}")
+    for name, bucket in (("executed", record.executed), ("queued", record.queued), ("denied", record.denied)):
+        if bucket:
+            print(f"  {name}: {bucket[0]['kind']}")
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--file", help="JSON file with the email (same shape as dataset cases)")
+    ap.add_argument("--version", choices=["v0", "v1", "v2"], default="v2")
+    args = ap.parse_args()
+
+    from dotenv import load_dotenv
+    load_dotenv(ROOT / ".env")
+
+    email = json.loads(Path(args.file).read_text()) if args.file else prompt_email()
+    if "email" in email:  # allow passing a whole dataset case file
+        email = email["email"]
+
+    from .pipeline import InboxPipeline
+    from .retrieval import build_index
+
+    print(f"\n{DIM}building pipeline ({args.version})...{RESET}")
+    pipeline = InboxPipeline(build_index(ROOT / "corpus"),
+                             str(ROOT / "fixtures/calendar.json"),
+                             str(ROOT / "fixtures/contacts.json"), version=args.version)
+    record = pipeline.run_email("live-demo", email)
+    show(record, pipeline.identity, email)
+
+
+if __name__ == "__main__":
+    main()

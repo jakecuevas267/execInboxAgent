@@ -34,3 +34,9 @@ langsmith-upload:
 langsmith-experiments:
 	$(PY) evals/langsmith_sync.py --version v0
 	$(PY) evals/langsmith_sync.py --version v2
+
+triage:
+	PYTHONPATH=src $(PY) -m inbox_agent.cli
+
+triage-sample:
+	PYTHONPATH=src $(PY) -m inbox_agent.cli --file demo/sample_email.json
