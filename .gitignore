@@ -4,3 +4,4 @@ __pycache__/
 .env
 .chroma/
 results/
+NEXT_STEPS.md

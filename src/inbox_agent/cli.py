@@ -83,18 +83,39 @@ def show(record, identity, email) -> None:
             print(f"  {name}: {bucket[0]['kind']}")
 
 
+# The "inbox view": five cases that tell the whole story in five rows -
+# an auto-archive, an auto-decline, a VIP draft (HITL), a spoof caught,
+# and the famous threshold-gaming escalation.
+BATCH_CASES = ["n01", "n09", "n06", "a04", "e07"]
+
+
+def run_batch(pipeline, version: str) -> None:
+    cases = {c["id"]: c for c in
+             json.loads((ROOT / "datasets/golden_inbox.json").read_text())["cases"]}
+    print(f"\n{BOLD}{'':2} {'from':<22} {'subject':<30} {'triage':<12} "
+          f"{'verdict':<8} outcome{RESET}")
+    for cid in BATCH_CASES:
+        email = cases[cid]["email"]
+        record = pipeline.run_email(cid, email)
+        color, _ = VERDICT_STYLE[record.verdict_decision]
+        outcome = (record.executed or record.queued or record.denied)[0]["kind"]
+        bucket = "ran" if record.executed else ("queued" if record.queued else "refused")
+        print(f"{DIM}{cid:>3}{RESET} {email['from_name']:<22} "
+              f"{email['subject'][:29]:<30} {record.decision['triage_label']:<12} "
+              f"{color}{record.verdict_decision:<8}{RESET} {outcome} ({bucket})")
+    print(f"\n{DIM}Detail on any of these: make triage, or run_eval.py --ids <id>{RESET}")
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--file", help="JSON file with the email (same shape as dataset cases)")
+    ap.add_argument("--batch", action="store_true",
+                    help="inbox view: run 5 representative cases, one line each")
     ap.add_argument("--version", choices=["v0", "v1", "v2"], default="v2")
     args = ap.parse_args()
 
     from dotenv import load_dotenv
     load_dotenv(ROOT / ".env")
-
-    email = json.loads(Path(args.file).read_text()) if args.file else prompt_email()
-    if "email" in email:  # allow passing a whole dataset case file
-        email = email["email"]
 
     from .pipeline import InboxPipeline
     from .retrieval import build_index
@@ -103,6 +124,14 @@ def main():
     pipeline = InboxPipeline(build_index(ROOT / "corpus"),
                              str(ROOT / "fixtures/calendar.json"),
                              str(ROOT / "fixtures/contacts.json"), version=args.version)
+
+    if args.batch:
+        run_batch(pipeline, args.version)
+        return
+
+    email = json.loads(Path(args.file).read_text()) if args.file else prompt_email()
+    if "email" in email:  # allow passing a whole dataset case file
+        email = email["email"]
     record = pipeline.run_email("live-demo", email)
     show(record, pipeline.identity, email)
 

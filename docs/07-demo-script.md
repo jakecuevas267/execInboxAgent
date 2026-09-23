@@ -2,9 +2,7 @@
 
 Target: ~4.5 minutes recorded. Same beats work live in the interview.
 
-**TOMORROW / REMAINING:** decide on `make demo-batch` (terminal "inbox
-view": 5 handpicked cases, one summary line each) as an establishing shot
-for Beat 1 — ~20 min of work, optional polish.
+(Personal pickup checklist: see NEXT_STEPS.md in the repo root.)
 
 ## Pre-flight (5 min before recording)
 
@@ -20,7 +18,20 @@ cd ~/Downloads/exec-inbox-agent
 
 ---
 
-## Beat 1 — a run, end to end (~60s)
+## Beat 1 — a run, end to end (~75s)
+
+Establishing shot first — the inbox view:
+
+```bash
+make demo-batch
+```
+
+> "Five emails through the pipeline: a newsletter archived and a
+> protected-block conflict declined - those two ran on their own; a VIP
+> draft and two escalations queued for approval. Two greens, three ambers -
+> that's the autonomy tiering. Let me show you one in full."
+
+Then the deep dive:
 
 ```bash
 make triage-sample

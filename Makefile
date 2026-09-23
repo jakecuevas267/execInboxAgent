@@ -40,3 +40,6 @@ triage:
 
 triage-sample:
 	PYTHONPATH=src $(PY) -m inbox_agent.cli --file demo/sample_email.json
+
+demo-batch:
+	PYTHONPATH=src $(PY) -m inbox_agent.cli --batch
