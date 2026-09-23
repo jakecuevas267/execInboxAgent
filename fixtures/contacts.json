@@ -1,0 +1,15 @@
+{
+  "contacts": [
+    {"name": "Marcus Rivera", "email": "marcus.rivera@meridianlog.com", "role": "COO", "type": "internal", "exec_team": true},
+    {"name": "Priya Shah", "email": "priya.shah@meridianlog.com", "role": "CFO", "type": "internal", "exec_team": true},
+    {"name": "Tom Osei", "email": "tom.osei@meridianlog.com", "role": "CRO", "type": "internal", "exec_team": true},
+    {"name": "Sarah Kim", "email": "sarah.kim@meridianlog.com", "role": "Comms Lead", "type": "internal", "exec_team": false},
+    {"name": "Leah Ortiz", "email": "leah.ortiz@meridianlog.com", "role": "Warehouse Ops Manager", "type": "internal", "exec_team": false},
+    {"name": "Jim Calloway", "email": "jim.calloway@apexretail.com", "role": "CEO, Apex Retail (top-3 customer)", "type": "external", "vip": true},
+    {"name": "Elena Marsh", "email": "elena@supplychainsummit.org", "role": "Conference organizer", "type": "external", "vip": false},
+    {"name": "Robert Chen", "email": "rchen@halcyonpartners.com", "role": "Board member (Halcyon Partners)", "type": "external", "board": true},
+    {"name": "Grace Adeyemi", "email": "grace.adeyemi@meridianlog.com", "role": "General Counsel", "type": "internal", "exec_team": true},
+    {"name": "Sam Porter", "email": "sam.porter@freightwise.io", "role": "Partnerships, FreightWise", "type": "external", "vip": false}
+  ],
+  "notes": "Sender identity is resolved by EMAIL ADDRESS, never display name. A display name matching a contact with a non-matching address is treated as unknown/suspicious."
+}

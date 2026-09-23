@@ -1,0 +1,21 @@
+{
+  "description": "Component-level eval for the RAG step: query -> chunk ids that must appear in top-k (recall@k). Chunk ids are stable headers from corpus docs.",
+  "k": 4,
+  "cases": [
+    {"id": "r01", "query": "who handles billing and invoice questions", "expected_chunks": ["exec_preferences#3-delegation-rules"]},
+    {"id": "r02", "query": "invoice for $15,400 past due", "expected_chunks": ["exec_preferences#3-delegation-rules"]},
+    {"id": "r03", "query": "meeting request during morning deep work time", "expected_chunks": ["exec_preferences#1-calendar-rules"]},
+    {"id": "r04", "query": "can I share the board deck externally", "expected_chunks": ["exec_preferences#4-confidentiality"]},
+    {"id": "r05", "query": "Project Bluebird status question", "expected_chunks": ["exec_preferences#4-confidentiality"]},
+    {"id": "r06", "query": "how should Dana decline a meeting", "expected_chunks": ["exec_preferences#5-voice-and-tone", "style_examples#example-5"]},
+    {"id": "r07", "query": "customer threatening to leave for a competitor", "expected_chunks": ["exec_preferences#3-delegation-rules"]},
+    {"id": "r08", "query": "reporter asking for comment", "expected_chunks": ["exec_preferences#2-email-triage-rules"]},
+    {"id": "r09", "query": "employee complaint about a manager", "expected_chunks": ["exec_preferences#3-delegation-rules", "exec_preferences#2-email-triage-rules"]},
+    {"id": "r10", "query": "what actions can run without approval", "expected_chunks": ["exec_preferences#6-autonomy-tiers"]},
+    {"id": "r11", "query": "invite from a board member conflicting with blocked time", "expected_chunks": ["exec_preferences#1-calendar-rules"]},
+    {"id": "r12", "query": "how does Dana sign her emails", "expected_chunks": ["exec_preferences#5-voice-and-tone"]},
+    {"id": "r13", "query": "someone asks to forward internal documents", "expected_chunks": ["exec_preferences#4-confidentiality"]},
+    {"id": "r14", "query": "meeting invite with no agenda", "expected_chunks": ["exec_preferences#1-calendar-rules"]},
+    {"id": "r15", "query": "warm brief reply to a customer complaint", "expected_chunks": ["style_examples#example-3", "exec_preferences#5-voice-and-tone"]}
+  ]
+}
