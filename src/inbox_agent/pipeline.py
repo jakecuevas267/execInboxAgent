@@ -13,7 +13,7 @@ import re
 from dataclasses import asdict, dataclass, field
 
 from . import gateway as gateway_mod
-from .agent import Decision, build_agent
+from .agent import Decision, build_agent, extract_decision
 from .calendar_svc import CalendarService
 from .governance import Decision as GovDecision
 from .governance import ProposedAction, Sender, Verdict, govern
@@ -64,7 +64,7 @@ class InboxPipeline:
 
         # 2. The reasoning node.
         result = self.agent.invoke({"messages": [{"role": "user", "content": render_email(email)}]})
-        decision: Decision = result["structured_response"]
+        decision: Decision = extract_decision(result)
         tool_calls = [
             {"name": tc["name"], "args": tc["args"]}
             for m in result["messages"]
