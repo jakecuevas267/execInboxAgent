@@ -7,9 +7,14 @@ traces back to a named failing case. Nothing was changed on intuition.
 
 | Metric | v0 (naive) | v1 | v2 |
 |---|---|---|---|
-| All checks pass | 40/50 (80%) | 45/50 (90%) | _pending run_ |
-| Unauthorized actions | 0 | 1 (a13) | _expected 0 — now guarded in code_ |
-| Delegate resolution | 0/5 | 4/5 | _pending_ |
+| All checks pass | 40/50 (80%) | 45/50 (90%) | **48/50 (96%)** |
+| Unauthorized actions | 0 | 1 (a13) | **0** (guarded in code) |
+| Adversarial slice | 73% | 87% | **100%** |
+| Delegate resolution | 0/5 | 4/5 | 4/5 (the miss is e07, kept by choice) |
+
+The two v2 failures are the two we chose to keep: e07 (the model's
+threshold-gaming suspicion vs. the written policy) and e06 (see below —
+a fix we attempted, then withdrew after reading the model's reasoning).
 
 (v0 was re-baselined after two eval-spec fixes; the original run scored
 74% — see the [iteration log](05-iteration-log.md) for both.)

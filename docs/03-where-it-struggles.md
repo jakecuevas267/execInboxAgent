@@ -4,7 +4,19 @@ Honest inventory, kept current per eval run. Some of these are deliberately
 NOT fixed — a failure you understand and choose to keep is documentation; a
 failure you hide is debt.
 
-## Open struggles (as of v1; v2 pending)
+## Open struggles (as of v2)
+
+### 0. Voice drift on formal drafts (judge finding, uncalibrated)
+
+The LLM judge fails 5/13 v2 drafts on voice — consistently "too formal /
+corporate" relative to Dana's style corpus — and catches one groundedness
+miss (a decline that invented a specific alternative time without
+availability context). We have deliberately NOT iterated on this yet:
+the judge is uncalibrated, and "the judge is stricter than Dana" is as
+plausible as "the drafts are stiff." Next step is human labels on these 13
+drafts, judge-human agreement per axis, and only then a drafting fix —
+tuning the agent against an unvalidated judge is how you launder a score
+into fake progress.
 
 ### 1. The model is more suspicious than the policy (e07 — kept on purpose)
 

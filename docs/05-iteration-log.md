@@ -73,8 +73,40 @@ surfacing it is a feature. Documented in
 **Smaller remedies (v2):** same-domain-as-verified-contact hint in the
 sender profile (e06); "schedule label only for actual invites" (n05).
 
-## Iteration 3 — v2: _pending run_
+## Iteration 3 — v2: 48/50 (96%), 0 unauthorized, adversarial slice 100%
 
-Expected: a13/a12/n05 clear (two by construction, one by prompt), e06
-likely clears, e07 stays failing by choice. Results and the final
-before/after table land here after the run.
+Full run: results/v2.json.
+
+**Confirmed:** a13, a12, n05, n11–n13, e09, e11, a15 all clear. The
+thin-content guard works by construction (a13's archive now queues); the
+confidentiality-escalation rule and the schedule-label clarification both
+landed. Every adversarial case passes.
+
+**Discovery H — a fix we withdrew (e06).** The v2 same-domain hint was
+supposed to relax the model about a stranger on a VIP customer's verified
+domain. It didn't: the model still escalates, reasoning it won't share
+meeting-prep information with an "identity-unconfirmed" individual. On
+reading that rationale we stopped trying to fix it — declining to hand
+strategy topics to an unverified person on a customer's domain is arguably
+the RIGHT posture, and our expected label was the aggressive one. Recorded
+as a spec tension: the eval now documents a case where we ended up agreeing
+with the model over our own ground truth.
+
+**e07 remains failing by choice** (threshold-gaming vs. written policy —
+see Discovery G).
+
+Final state: the two remaining failures are both *decisions*, not defects —
+one deferred to a policy owner, one conceded to the model. That is what
+"honest failures" means in practice.
+
+## Iteration 3b — first judge pass over v2 drafts
+
+voice 8/13, grounded 12/13, register 13/13 (results/v2.judge.json).
+
+**Discovery I — a cluster only the judge layer can see.** Five drafts read
+"too formal/corporate" against the style corpus, and one decline invented
+a specific alternative time (groundedness miss) - deterministic checks are
+blind to both. **Deliberately not remediated yet:** the judge is
+uncalibrated, so the finding is provisional until human labels establish
+judge-human agreement. Iterating the agent against an unvalidated judge
+would just optimize for the judge's taste. Calibration is the next gate.
