@@ -35,7 +35,7 @@ def prompt_email() -> dict:
         "from_email": input("  From (address): ").strip(),
         "subject": input("  Subject: ").strip(),
     }
-    print("  Body:")
+    print("  Body (finish with an EMPTY line - press Enter twice):")
     lines = []
     while (line := sys.stdin.readline().rstrip("\n")) != "":
         lines.append(line)
