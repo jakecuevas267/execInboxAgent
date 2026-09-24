@@ -19,9 +19,16 @@ cd ~/Downloads/exec-inbox-agent
 
 ---
 
-## Beat 0 — preface (~20s, camera on terminal, before any command)
+## Beat 0 — preface (~30s, camera on terminal, before any command)
 
-> "Quick orientation before I run anything. Everything you'll see lives in
+> "This is an executive inbox agent: it triages a CEO's email - archives
+> the noise, drafts replies in her voice, delegates to the right person,
+> escalates what needs her - and it's allowed to act on its own only
+> where correctness is provable in code. Everything outbound waits for
+> her approval. The question the project answers is: how much autonomy
+> has this agent earned, and how do the evals prove it?
+>
+> Quick orientation before I run anything. Everything you'll see lives in
 > a synthetic world I built first: a fictional CEO - Dana Whitfield - with
 > a written policy doc, a style corpus, a contact directory, and a
 > calendar, all fixtures in the repo. The emails come from a 50-case
@@ -198,11 +205,11 @@ Stop recording there.
 
 | Beat | Time |
 |---|---|
-| 0 - preface: synthetic world, why terminal | 0:00-0:20 |
-| 1 - demo-batch + triage-sample | 0:20-1:35 |
-| 2 - VIP email + spoof email, both typed live | 1:35-3:35 |
-| 3 - LangSmith compare + a12 + make test | 3:35-5:05 |
-| 4 - e07 close | 5:05-5:35 |
+| 0 - preface: what it is, synthetic world, why terminal | 0:00-0:30 |
+| 1 - demo-batch + triage-sample | 0:30-1:45 |
+| 2 - VIP email + spoof email, both typed live | 1:45-3:45 |
+| 3 - LangSmith compare + a12 + make test | 3:45-5:15 |
+| 4 - e07 close | 5:15-5:45 |
 
 (~5:15 total - still "brief"; trim Beat 3's a12 walkthrough if you want
 to land under 5. `make triage-vip` exists as a canned backup for 2a if a
