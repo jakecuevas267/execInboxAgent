@@ -102,6 +102,7 @@ def hitl_review(record) -> dict | None:
         choice = input("  (a)pprove / (e)dit then approve / (r)eject: ").strip().lower()
 
     edited = False
+    original_draft = action.get("draft_text")
     if choice == "e":
         revised = input("  revised draft (blank keeps original): ").strip()
         if revised:
@@ -110,6 +111,8 @@ def hitl_review(record) -> dict | None:
     if choice in ("a", "e"):
         record.executed.append(record.queued.pop(0))
         print(f"  {GREEN}{BOLD}APPROVED{RESET} - {action['kind']} executed (mock send)")
+        if edited:
+            print(f"\n{DIM}--- final draft (as approved) ---{RESET}\n{action['draft_text']}\n{DIM}---------------------------------{RESET}")
     else:
         record.denied.append(record.queued.pop(0))
         print(f"  {RED}{BOLD}REJECTED{RESET} - nothing leaves the building")
@@ -118,7 +121,9 @@ def hitl_review(record) -> dict | None:
              "case_id": record.case_id, "action": action["kind"],
              "human_decision": {"a": "approved", "e": "approved_with_edit",
                                 "r": "rejected"}[choice],
-             "edited": edited}
+             "edited": edited,
+             "original_draft": original_draft,
+             "final_draft": action.get("draft_text")}
     log_path = ROOT / "results" / "hitl_log.json"
     log = json.loads(log_path.read_text()) if log_path.exists() else []
     log.append(entry)
@@ -144,7 +149,8 @@ def triage_session(pipeline, email: dict) -> dict:
         return {"triage_label": record.decision["triage_label"],
                 "verdict": record.verdict_decision,
                 "human_decision": (review or {}).get("human_decision", "n/a (nothing queued or non-interactive)"),
-                "draft_edited": (review or {}).get("edited", False)}
+                "draft_edited": (review or {}).get("edited", False),
+                "final_draft": (review or {}).get("final_draft") or record.decision.get("draft_text")}
 
     @traceable(name="hitl_review", run_type="chain")
     def _traced_review(record):
