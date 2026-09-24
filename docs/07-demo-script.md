@@ -19,6 +19,21 @@ cd ~/Downloads/exec-inbox-agent
 
 ---
 
+## Beat 0 — preface (~20s, camera on terminal, before any command)
+
+> "Quick orientation before I run anything. Everything you'll see lives in
+> a synthetic world I built first: a fictional CEO - Dana Whitfield - with
+> a written policy doc, a style corpus, a contact directory, and a
+> calendar, all fixtures in the repo. The emails come from a 50-case
+> golden dataset I wrote before the agent existed - or from my keyboard,
+> live. No real mailbox, on purpose: it keeps every trace shareable,
+> every run reproducible, and it meant I could write the eval
+> expectations down before building. And it's a terminal because the
+> product here is the pipeline and its evaluation harness - a mailbox UI
+> is commodity; the trust machinery is the work."
+
+Then straight into `make demo-batch`.
+
 ## Beat 1 — a run, end to end (~75s)
 
 Establishing shot first — the inbox view:
@@ -183,10 +198,11 @@ Stop recording there.
 
 | Beat | Time |
 |---|---|
-| 1 - demo-batch + triage-sample | 0:00-1:15 |
-| 2 - VIP email + spoof email, both typed live | 1:15-3:15 |
-| 3 - LangSmith compare + a12 + make test | 3:15-4:45 |
-| 4 - e07 close | 4:45-5:15 |
+| 0 - preface: synthetic world, why terminal | 0:00-0:20 |
+| 1 - demo-batch + triage-sample | 0:20-1:35 |
+| 2 - VIP email + spoof email, both typed live | 1:35-3:35 |
+| 3 - LangSmith compare + a12 + make test | 3:35-5:05 |
+| 4 - e07 close | 5:05-5:35 |
 
 (~5:15 total - still "brief"; trim Beat 3's a12 walkthrough if you want
 to land under 5. `make triage-vip` exists as a canned backup for 2a if a
