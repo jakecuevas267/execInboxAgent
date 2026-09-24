@@ -67,9 +67,11 @@ built and proven.
 make setup                 # venv + deps (Python 3.12+)
 cp .env.example .env       # add ANTHROPIC_API_KEY (+ LangSmith key for traces)
 
-make test                  # 61 unit tests, no API key needed
+make test                  # 65 unit tests, no API key needed
 make retrieval-eval        # RAG component eval, no API key needed
-make demo                  # 3 cases: an auto-decline, an injection attempt, a VIP draft
+make demo-batch            # inbox view: 5 representative emails, one line each
+make triage-sample         # one email end to end (auto-decline with draft)
+make triage                # type any email; approve/edit/reject queued actions live
 make eval-v2               # full 50-case run (~$1-3, ~25 min)
 make judge                 # LLM judge over the drafts
 ```
@@ -82,8 +84,17 @@ Models: agent `claude-sonnet-5` (set `AGENT_MODEL` to change), judge
 Every agent run is traced to LangSmith (project `exec-inbox-agent`) when
 `LANGSMITH_*` env vars are set: per-case traces show the
 `search_context -> calendar_lookup -> submit_decision` trajectory; the
-final decision is itself a tool-call span. Per-case eval detail (decisions,
-verdicts, rationales, tool calls, checks) is committed under `results/`.
+final decision is itself a tool-call span, and each CLI triage is one
+`triage_session` trace containing the agent run, the `governance_verdict`
+span, and an `hitl_review` span whose output is the human's
+approve/edit/reject and final draft - the trace ends where the story ends,
+not at the model call. Per-case eval detail (decisions, verdicts,
+rationales, tool calls, checks) is committed under `results/`.
+
+**Links for reviewers** (public share links):
+- Golden dataset: TODO-PASTE-LINK
+- Experiment `golden-v0` (naive baseline): TODO-PASTE-LINK
+- Experiment `golden-v2` (final): TODO-PASTE-LINK
 
 Two traces worth pulling up first:
 - **a12** — the model wrongly tries to delegate a message with a buried
@@ -102,9 +113,12 @@ Three layers, all built **before** the agent:
    lexical misses), governance engine (21 table-driven tests incl. the
    $10,000.00/$10,000.01 boundary), calendar math, identity/spoof detection.
 3. **LLM judge** for what genuinely needs judgment — voice, groundedness,
-   register of drafts — calibrated against human labels rather than trusted
-   blindly (current pass: voice 8/13; deliberately unremediated until
-   calibration says the judge is right).
+   register of drafts — calibrated against 13 blind human labels:
+   agreement register 100%, groundedness 92%, voice 69%. Calibration
+   priced the axes rather than validating the judge: register can gate,
+   groundedness needs consensus sampling (the judge graded one draft
+   differently across its own runs), voice is directional signal pending
+   a sharper rubric. Details: docs/05, Iteration 5.
 
 ## Path to production
 
@@ -152,9 +166,12 @@ corpus/      policy doc + style examples (the ground truth - written first)
 fixtures/    contacts + calendar (JSON; the "external systems")
 datasets/    golden_inbox.json (50 cases), retrieval_eval.json
 src/         inbox_agent: agent, pipeline, governance, gateway, identity,
-             calendar_svc, retrieval
-evals/       run_eval.py, run_retrieval_eval.py, judge.py
-tests/       61 unit tests (governance, calendar, identity, gateway, retrieval)
+             calendar_svc, retrieval, connectors (production seam),
+             cli (interactive triage + HITL approve/edit/reject)
+demo/        canned emails for the triage CLI
+evals/       run_eval.py, run_retrieval_eval.py, judge.py, langsmith_sync.py
+tests/       65 unit tests (governance, calendar, identity, gateway,
+             retrieval, connectors)
 results/     per-version eval output + judge grades
 docs/        the four take-home questions + iteration log + full design
 ```

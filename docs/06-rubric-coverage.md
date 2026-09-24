@@ -1,7 +1,8 @@
-# Rubric coverage (internal checklist — delete before submitting?)
+# Self-audit against the brief
 
 Mapping the take-home's "What We'd Like to See" and "Nice Extras" to what's
-built. Honest status per item; gaps are named, not hidden.
+built. Honest status per item; gaps are named, not hidden — consciously
+skipped items are marked as choices, with reasons.
 
 ## What We'd Like to See
 

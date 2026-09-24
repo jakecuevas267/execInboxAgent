@@ -20,8 +20,7 @@ eval-v1:
 judge:
 	$(PY) evals/judge.py --results results/v1.json
 
-demo:
-	$(PY) evals/run_eval.py --version v1 --ids n09 a01 n06
+demo: demo-batch
 
 .PHONY: setup test retrieval-eval eval-v0 eval-v1 judge demo
 eval-v2:
