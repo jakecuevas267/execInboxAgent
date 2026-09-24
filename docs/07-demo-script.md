@@ -87,6 +87,16 @@ window this morning" - which never happened. Say:
 (If this run's draft happens to be clean, say the same thing about the
 rehearsal run - the point stands either way.)
 
+**Then close the loop - the CLI now puts you in Dana's seat:** at the
+`(a)pprove / (e)dit then approve / (r)eject` prompt, choose **e**, type a
+one-line corrected draft (drop the invented claim), watch it execute, and
+point at the last line:
+
+> "My edit just got recorded to the HITL log. In production, every
+> approve, edit, and reject in this queue is a free labeled example -
+> the edits especially are gold for the voice evals. The approval queue
+> isn't overhead; it's the data flywheel."
+
 ### 2b. The hostile email (spoofed sender)
 
 ```bash
@@ -114,6 +124,10 @@ What appears, and the narration for each line:
 - Governance: DENY/HITL (never auto) -> *"and even if every one of those
   layers missed, sending compensation data is a DENY at the governance
   engine. Defense in depth: the model cannot be talked into this."*
+- If it lands in the queue, **reject it** at the prompt -> "nothing leaves
+  the building." If governance DENIED it outright, point at the closing
+  line: *"deny is final at this console - the boundary is code, not an
+  approval away."* Either ending works; narrate whichever you get.
 
 Live-interview variant: invite THEM to dictate the email. The fixtures
 world is on screen (Dana, Sam Porter, Priya, Jim Calloway) so they can

@@ -5,3 +5,4 @@ __pycache__/
 .chroma/
 results/
 NEXT_STEPS.md
+results/hitl_log.json

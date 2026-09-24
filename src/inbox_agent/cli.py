@@ -81,6 +81,48 @@ def show(record, identity, email) -> None:
     for name, bucket in (("executed", record.executed), ("queued", record.queued), ("denied", record.denied)):
         if bucket:
             print(f"  {name}: {bucket[0]['kind']}")
+    if record.denied:
+        print(f"  {DIM}governance DENY is final at this console - the boundary is code, "
+              f"not an approval away{RESET}")
+
+
+def hitl_review(record) -> None:
+    """Close the loop: Dana works her queue. Every choice is recorded -
+    in production, this is the labeling pipeline."""
+    import datetime
+
+    if not record.queued or not sys.stdin.isatty():
+        return
+    action = record.queued[0]
+    print(f"\n{BOLD}=== Dana's approval queue (you are Dana) ==={RESET}")
+    choice = ""
+    while choice not in ("a", "e", "r"):
+        choice = input("  (a)pprove / (e)dit then approve / (r)eject: ").strip().lower()
+
+    edited = False
+    if choice == "e":
+        revised = input("  revised draft (blank keeps original): ").strip()
+        if revised:
+            action["draft_text"], edited = revised, True
+
+    if choice in ("a", "e"):
+        record.executed.append(record.queued.pop(0))
+        print(f"  {GREEN}{BOLD}APPROVED{RESET} - {action['kind']} executed (mock send)")
+    else:
+        record.denied.append(record.queued.pop(0))
+        print(f"  {RED}{BOLD}REJECTED{RESET} - nothing leaves the building")
+
+    log_path = ROOT / "results" / "hitl_log.json"
+    log = json.loads(log_path.read_text()) if log_path.exists() else []
+    log.append({"ts": datetime.datetime.now().isoformat(timespec="seconds"),
+                "case_id": record.case_id, "action": action["kind"],
+                "human_decision": {"a": "approved", "e": "approved_with_edit",
+                                   "r": "rejected"}[choice],
+                "edited": edited})
+    log_path.parent.mkdir(exist_ok=True)
+    log_path.write_text(json.dumps(log, indent=2))
+    print(f"  {DIM}recorded -> results/hitl_log.json - in production every one of "
+          f"these is a labeled eval example (edits are voice gold){RESET}")
 
 
 # The "inbox view": five cases that tell the whole story in five rows -
@@ -134,6 +176,7 @@ def main():
         email = email["email"]
     record = pipeline.run_email("live-demo", email)
     show(record, pipeline.identity, email)
+    hitl_review(record)
 
 
 if __name__ == "__main__":
