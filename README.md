@@ -106,6 +106,19 @@ Three layers, all built **before** the agent:
    blindly (current pass: voice 8/13; deliberately unremediated until
    calibration says the judge is right).
 
+## Path to production
+
+The mailbox is a seam, not a rewrite: the pipeline consumes plain email
+dicts, and [src/inbox_agent/connectors.py](src/inbox_agent/connectors.py)
+defines the interface — `FixtureInbox`/`MockSender` power the demo;
+`GmailInbox`/`GmailSender` are documented stubs whose docstrings spell out
+the real wiring (OAuth scopes split read/write, watch + Pub/Sub ingest,
+normalization, idempotency). The agent, governance engine, and evals are
+untouched by the swap — real mail is just a different
+`fetch_unprocessed()`. Beyond the connectors: a real approval-queue UI,
+durable state (Postgres) behind the audit log, and trace redaction before
+export.
+
 ## Evaluating in production
 
 The HITL queue doubles as a free labeling pipeline: every human
