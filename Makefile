@@ -43,3 +43,6 @@ triage-sample:
 
 demo-batch:
 	PYTHONPATH=src $(PY) -m inbox_agent.cli --batch
+
+triage-vip:
+	PYTHONPATH=src $(PY) -m inbox_agent.cli --file demo/vip_email.json

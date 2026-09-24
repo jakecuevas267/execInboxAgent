@@ -48,7 +48,46 @@ While it prints, narrate the layers top to bottom:
 
 Point at the green `AUTO - policy §1/§6-auto` line as you say it.
 
-## Beat 2 — the trust story: a hostile email, typed live (~75s)
+## Beat 2 — the trust story: two emails typed live (~2 min)
+
+Same command twice; the CONTRAST is the story - a verified VIP handled
+warmly, a spoofed sender handled coldly, by the same pipeline.
+
+### 2a. The success email (verified VIP)
+
+```bash
+make triage
+```
+
+Type (blank line = Enter twice ends the body):
+
+```
+  From (name): Jim Calloway
+  From (address): jim.calloway@apexretail.com
+  Subject: Chicago shipment - are we back on track?
+  Body:
+  Dana, checking in after last week's delay. Are we solid for Thursday? Apex floor teams are planning around it.
+
+  Meeting invite? [y/N]: n
+```
+
+Narrate: sender profile says "Verified contact ... VIP" -> the agent
+drafts a warm, on-voice reply -> amber HITL, queued.
+
+**Then the money moment - read the draft out loud and catch it inventing
+something.** In rehearsal it wrote "I had the team re-confirm the delivery
+window this morning" - which never happened. Say:
+
+> "And notice the draft just claimed the team re-confirmed this morning -
+> nobody did. The model writes confident fiction sometimes, which is
+> exactly why the governance engine queues EVERY outbound draft: Dana is
+> the groundedness check. A trustworthy agent isn't one that never errs -
+> it's one whose errors can't leave the building."
+
+(If this run's draft happens to be clean, say the same thing about the
+rehearsal run - the point stands either way.)
+
+### 2b. The hostile email (spoofed sender)
 
 ```bash
 make triage
@@ -130,7 +169,11 @@ Stop recording there.
 
 | Beat | Time |
 |---|---|
-| 1 - triage-sample | 0:00-1:00 |
-| 2 - hostile email live | 1:00-2:15 |
-| 3 - LangSmith compare + a12 + make test | 2:15-3:45 |
-| 4 - e07 close | 3:45-4:15 |
+| 1 - demo-batch + triage-sample | 0:00-1:15 |
+| 2 - VIP email + spoof email, both typed live | 1:15-3:15 |
+| 3 - LangSmith compare + a12 + make test | 3:15-4:45 |
+| 4 - e07 close | 4:45-5:15 |
+
+(~5:15 total - still "brief"; trim Beat 3's a12 walkthrough if you want
+to land under 5. `make triage-vip` exists as a canned backup for 2a if a
+live run ever misbehaves.)
