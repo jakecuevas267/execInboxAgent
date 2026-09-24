@@ -8,3 +8,4 @@ __pycache__/
 results/hitl_log.json
 results/labeling_worksheet.md
 docs/07-demo-script.md
+docs/06-rubric-coverage.md

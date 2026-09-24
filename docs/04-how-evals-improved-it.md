@@ -3,6 +3,17 @@
 The loop ran twice (v0 -> v1 -> v2), and every change in the agent's history
 traces back to a named failing case. Nothing was changed on intuition.
 
+## The two architectures, visually
+
+![v0 - naive pipeline](architecture-v0.svg)
+
+![v2 - guarded pipeline](architecture-v2.svg)
+
+Same spine, different trust: everything amber/red in v0 (facts taken on
+the model's word) is teal in v2 (resolved in code). The governance engine
+is teal in both - it was deterministic from day one, which is why
+unauthorized actions were 0 even in the naive baseline.
+
 ## The scoreboard
 
 | Metric | v0 (naive) | v1 | v2 |

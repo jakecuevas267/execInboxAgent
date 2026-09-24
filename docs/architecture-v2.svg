@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="710" viewBox="0 0 880 710" font-family="Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="880" height="710" fill="#FAF9F5"/>
+  <text x="40" y="38" font-size="20" font-weight="bold" fill="#1a1a1a">v2 — guarded pipeline (final)</text>
+  <text x="40" y="60" font-size="13" fill="#666">48/50 checks pass · adversarial slice 100% · unauthorized actions 0, every run · every v0 failure answered in code</text>
+
+  <defs><marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#666" stroke-width="1.6"/></marker></defs>
+
+  <rect x="60" y="84" width="240" height="52" rx="6" fill="#EDEBE3" stroke="#999"/>
+  <text x="180" y="106" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Email input</text>
+  <text x="180" y="125" font-size="12" fill="#555" text-anchor="middle">eval runner · CLI (dict in)</text>
+
+  <line x1="180" y1="136" x2="180" y2="166" stroke="#666" stroke-width="1.2" marker-end="url(#ar)"/>
+
+  <rect x="60" y="170" width="240" height="70" rx="6" fill="#E1F5EE" stroke="#0F6E56"/>
+  <text x="180" y="192" font-size="15" font-weight="bold" fill="#04342C" text-anchor="middle">Gateway scan</text>
+  <text x="180" y="211" font-size="12" fill="#085041" text-anchor="middle">injection · exfil · spoof · money</text>
+  <text x="180" y="228" font-size="12" fill="#085041" text-anchor="middle">+ thin-content guard (from a13)</text>
+
+  <text x="330" y="196" font-size="12.5" fill="#0F6E56">flags bypass the model —</text>
+  <text x="330" y="212" font-size="12.5" fill="#0F6E56">unioned straight into governance</text>
+
+  <line x1="180" y1="240" x2="180" y2="270" stroke="#666" stroke-width="1.2" marker-end="url(#ar)"/>
+
+  <rect x="60" y="274" width="240" height="52" rx="6" fill="#E1F5EE" stroke="#0F6E56"/>
+  <text x="180" y="295" font-size="14" font-weight="bold" fill="#04342C" text-anchor="middle">[Sender profile] injected</text>
+  <text x="180" y="313" font-size="12" fill="#085041" text-anchor="middle">identity resolved by ADDRESS, in code</text>
+
+  <line x1="180" y1="326" x2="180" y2="356" stroke="#666" stroke-width="1.2" marker-end="url(#ar)"/>
+
+  <rect x="60" y="360" width="240" height="70" rx="6" fill="#EEEDFE" stroke="#534AB7"/>
+  <text x="180" y="383" font-size="15" font-weight="bold" fill="#26215C" text-anchor="middle">Agent node (Claude)</text>
+  <text x="180" y="402" font-size="12" fill="#3C3489" text-anchor="middle">drafts in Dana's voice</text>
+  <text x="180" y="419" font-size="12" fill="#3C3489" text-anchor="middle">delegates by name · submit_decision</text>
+
+  <rect x="380" y="360" width="200" height="52" rx="6" fill="#EEEDFE" stroke="#534AB7"/>
+  <text x="480" y="381" font-size="14" font-weight="bold" fill="#26215C" text-anchor="middle">calendar_lookup</text>
+  <text x="480" y="400" font-size="12" fill="#3C3489" text-anchor="middle">returns COMPUTED verdict</text>
+  <line x1="300" y1="386" x2="376" y2="386" stroke="#666" stroke-width="1.2" marker-end="url(#ar)"/>
+
+  <rect x="640" y="360" width="190" height="52" rx="6" fill="#E1F5EE" stroke="#0F6E56"/>
+  <text x="735" y="381" font-size="14" font-weight="bold" fill="#04342C" text-anchor="middle">calendar_svc</text>
+  <text x="735" y="400" font-size="12" fill="#085041" text-anchor="middle">interval math in code</text>
+  <line x1="580" y1="386" x2="636" y2="386" stroke="#0F6E56" stroke-width="1.2" marker-end="url(#ar)"/>
+
+  <line x1="180" y1="430" x2="180" y2="460" stroke="#666" stroke-width="1.2" marker-end="url(#ar)"/>
+
+  <rect x="60" y="464" width="480" height="86" rx="6" fill="#E1F5EE" stroke="#0F6E56"/>
+  <text x="300" y="488" font-size="15" font-weight="bold" fill="#04342C" text-anchor="middle">Facts resolved in code — never the model's word</text>
+  <text x="300" y="509" font-size="12.5" fill="#085041" text-anchor="middle">conflict = calendar_svc math · amount = parsed</text>
+  <text x="300" y="527" font-size="12.5" fill="#085041" text-anchor="middle">delegate name -> verified address or None</text>
+  <text x="300" y="545" font-size="12.5" fill="#085041" text-anchor="middle">flags = model's ∪ gateway's (model can only ADD suspicion)</text>
+
+  <text x="640" y="492" font-size="13" font-weight="bold" fill="#0F6E56">v0 failures, answered:</text>
+  <text x="640" y="512" font-size="12.5" fill="#0F6E56">· addresses can't be invented</text>
+  <text x="640" y="530" font-size="12.5" fill="#0F6E56">· no more identity guessing</text>
+  <text x="640" y="548" font-size="12.5" fill="#0F6E56">· conflict math guaranteed</text>
+
+  <line x1="300" y1="550" x2="300" y2="580" stroke="#666" stroke-width="1.2" marker-end="url(#ar)"/>
+
+  <rect x="60" y="584" width="480" height="58" rx="6" fill="#E1F5EE" stroke="#0F6E56"/>
+  <text x="300" y="608" font-size="15" font-weight="bold" fill="#04342C" text-anchor="middle">Governance engine — AUTO / HITL / DENY</text>
+  <text x="300" y="628" font-size="12.5" fill="#085041" text-anchor="middle">pure Python · every verdict cites its policy section · 21-case table suite</text>
+
+  <line x1="180" y1="642" x2="140" y2="666" stroke="#666" stroke-width="1.2" marker-end="url(#ar)"/>
+  <line x1="300" y1="642" x2="300" y2="666" stroke="#666" stroke-width="1.2" marker-end="url(#ar)"/>
+  <line x1="420" y1="642" x2="460" y2="666" stroke="#666" stroke-width="1.2" marker-end="url(#ar)"/>
+
+  <rect x="50" y="670" width="170" height="34" rx="6" fill="#EAF3DE" stroke="#3B6D11"/>
+  <text x="135" y="691" font-size="12.5" font-weight="bold" fill="#173404" text-anchor="middle">auto: executed (mock)</text>
+  <rect x="230" y="670" width="190" height="34" rx="6" fill="#FAEEDA" stroke="#BA7517"/>
+  <text x="325" y="691" font-size="12.5" font-weight="bold" fill="#412402" text-anchor="middle">hitl: approve / edit / reject</text>
+  <rect x="430" y="670" width="150" height="34" rx="6" fill="#FCEBEB" stroke="#A32D2D"/>
+  <text x="505" y="691" font-size="12.5" font-weight="bold" fill="#501313" text-anchor="middle">deny: final in code</text>
+
+  <text x="600" y="676" font-size="12" fill="#666">all three -> audit record +</text>
+  <text x="600" y="692" font-size="12" fill="#666">traced spans incl. human decision</text>
+</svg>

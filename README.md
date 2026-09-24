@@ -59,7 +59,9 @@ This is a deliberate vertical slice of a fuller CEO-assistant design
 (Slack/Salesforce agents, brief-prep, multi-agent routing — see
 [docs/full-design.png](docs/full-design.png)): the inbox is the
 highest-trust-risk path and the most evaluable, so it's the slice that got
-built and proven.
+built and proven. Before/after architecture diagrams (v0 naive vs v2
+guarded): [docs/architecture-v0.svg](docs/architecture-v0.svg) /
+[docs/architecture-v2.svg](docs/architecture-v2.svg).
 
 ## Quickstart
 
