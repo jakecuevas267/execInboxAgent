@@ -1,8 +1,9 @@
-.venv/
-__pycache__/
+
 *.pyc
-.env
 .chroma/
-results/
+.env
+.venv/
 NEXT_STEPS.md
+__pycache__/
 results/hitl_log.json
+results/labeling_worksheet.md
