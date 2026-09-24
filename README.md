@@ -52,16 +52,22 @@ flowchart LR
 
 The model proposes; code disposes. Every fact that gates autonomy — who the
 sender is, whether an invite conflicts, how much money is involved — is
-resolved deterministically, never taken from the model (in v0 it was, and
-the eval history shows what that cost).
+resolved deterministically, never taken from the model. In v0 it wasn't,
+and the pair of diagrams below is the eval story at a glance: everything
+amber/red in v0 (facts taken on the model's word, each annotated with the
+failure the evals caught there) is teal in v2 (resolved in code).
+Governance is teal in both — deterministic from day one, which is why
+unauthorized actions were zero even in the naive baseline.
+
+![v0 — naive pipeline](docs/architecture-v0.svg)
+
+![v2 — guarded pipeline](docs/architecture-v2.svg)
 
 This is a deliberate vertical slice of a fuller CEO-assistant design
 (Slack/Salesforce agents, brief-prep, multi-agent routing — see
 [docs/full-design.png](docs/full-design.png)): the inbox is the
 highest-trust-risk path and the most evaluable, so it's the slice that got
-built and proven. Before/after architecture diagrams (v0 naive vs v2
-guarded): [docs/architecture-v0.svg](docs/architecture-v0.svg) /
-[docs/architecture-v2.svg](docs/architecture-v2.svg).
+built and proven.
 
 ## Quickstart
 
@@ -94,9 +100,10 @@ not at the model call. Per-case eval detail (decisions, verdicts,
 rationales, tool calls, checks) is committed under `results/`.
 
 **Links for reviewers** (public share links):
-- Golden dataset: TODO-PASTE-LINK
-- Experiment `golden-v0` (naive baseline): TODO-PASTE-LINK
-- Experiment `golden-v2` (final): TODO-PASTE-LINK
+- Golden dataset: https://smith.langchain.com/public/150a683c-9796-418e-9490-fe612b6e024d/d
+- Experiment `golden-v0` (naive baseline) shown in the link above
+- Experiment `golden-v2` (final) shown in the link above
+- I cant figure out how to share the live traces via sharable link
 
 Two traces worth pulling up first:
 - **a12** — the model wrongly tries to delegate a message with a buried
@@ -149,17 +156,15 @@ new golden case -> fix -> re-run -> gate.
 
 ## AI assistance note
 
-<!-- JAKE: personalize before submitting - this must be in your own words
-and true. Draft: -->
-Built pair-programming with Claude Code. Claude drafted the initial corpus,
+I built this agent by pair-programming with Claude Code. Claude drafted the initial corpus,
 dataset cases, and module implementations from my design (the architecture
-is a slice of a CEO-assistant system I designed previously); I reviewed and
-own all of it. Things I verified or did myself: the governance rules and
-their unit tests against the written policy, the eval expectations
+is a slice of a full CEO-assistant system I designed); I reviewed and
+own all of it. Things I verified or did myself: which slice of the monolith agent to use from the original design, 
+the governance rules and their unit tests against the written policy, the eval expectations
 (including two spec bugs the v0 run exposed in my own dataset), failure
 triage and the decision of what NOT to fix (e06/e07), the human labels used
-to calibrate the judge, and all LangSmith trace review. The full commit
-history shows the eval-first build order.
+to calibrate the judge, and all LangSmith trace review and trace content. The full commit
+history shows the eval-first build order. 
 
 ## Repo layout
 
