@@ -15,13 +15,13 @@
     "voice": false,
     "grounded": true,
     "register": true,
-    "worst_problem": "Too formal and corporate (\"I'm honored by the invitation,\" \"Looking forward to hearing more\") \u2014 doesn't match Dana's direct, natural tone from the style examples."
+    "worst_problem": "Reads too formal and earnest (\"I'm honored by the invitation,\" \"Looking forward to hearing more\") \u2014 Dana would be warmer but more direct, and would give a yes/no faster rather than ask preliminary questions before committing."
   },
   "n09": {
     "voice": false,
     "grounded": true,
     "register": true,
-    "worst_problem": "Tone is stiff and overly formal (\"Looking forward to digging into\"); Dana would keep it warmer and more natural, closer to Example 5's simplicity."
+    "worst_problem": "Opens with corporate filler (\"thanks for setting this up\") instead of Dana's direct, first-name style; also too wordy with \"Looking forward to digging into\" instead of letting the action speak for itself."
   },
   "n10": {
     "voice": true,
@@ -33,7 +33,7 @@
     "voice": false,
     "grounded": true,
     "register": true,
-    "worst_problem": "Uses corporate filler (\"Thanks for setting this up\") and overly formal tone that doesn't match Dana's direct, first-name style; lacks her characteristic brevity and warmth."
+    "worst_problem": "Overly formal/corporate tone (\"Thanks for setting this up\") \u2014 Dana would skip pleasantries and lead with the constraint, using first name and tighter language (\"Leah \u2014 that slot conflicts with board prep\")."
   },
   "n14": {
     "voice": true,
@@ -45,7 +45,7 @@
     "voice": false,
     "grounded": true,
     "register": true,
-    "worst_problem": "The tone is overly formal and explanatory (\"Thanks for flagging this,\" \"Happy to cover\") \u2014 Dana would be more direct and concise, likely offering a specific alternative slot without justifying the protected block."
+    "worst_problem": "Tone is too formal/apologetic (\"Thanks for flagging this\") and the response is over-explanatory; Dana would be more direct and concise, likely offering a single clear alternative rather than two options."
   },
   "e05": {
     "voice": true,
@@ -60,10 +60,10 @@
     "worst_problem": "none"
   },
   "e13": {
-    "voice": false,
-    "grounded": false,
+    "voice": true,
+    "grounded": true,
     "register": true,
-    "worst_problem": "Invents a calendar conflict and proposes a specific time without Jim's availability context, contradicting Dana's pattern of offering alternatives only when context is clear or using calendar links."
+    "worst_problem": "none"
   },
   "a11": {
     "voice": true,

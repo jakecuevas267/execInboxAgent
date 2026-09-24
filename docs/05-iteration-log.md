@@ -118,6 +118,31 @@ runs. Two findings:
   That is the difference between a metric you monitor and a property you
   enforce.
 
+## Iteration 5 — judge calibration against blind human labels
+
+All 13 v2 drafts hand-labeled blind (worksheet, style corpus re-read
+first, judge output unseen). Agreement: **voice 69%, grounded 92%,
+register 100%.** Three findings:
+
+- **Discovery J — the voice disagreements are bidirectional** (human
+  stricter on n06/e13, judge stricter on n09/n11). This kills the earlier
+  "judge is probably too strict" hypothesis: the axis isn't miscalibrated
+  in one direction, the rubric is underspecified - two honest readers
+  split on "sounds like Dana." Consequence: voice scores are demoted to
+  directional signal, not a gate, until the rubric gets more style
+  anchors.
+- **Discovery K — the judge disagrees with ITSELF on the hardest axis.**
+  Its first run failed e13's draft for inventing a proposed time; a rerun
+  passed it; the blind human label sides with the stricter run. Judge
+  nondeterminism on groundedness means single-sample judging can't gate
+  it - production needs consensus sampling (n judge runs, majority) or a
+  tightened rubric.
+- **Register: 100% agreement** - the one axis trustworthy enough to gate
+  as-is.
+
+Calibration didn't validate the judge; it priced each axis. That is the
+point of calibrating.
+
 ## Iteration 3b — first judge pass over v2 drafts
 
 voice 8/13, grounded 12/13, register 13/13 (results/v2.judge.json).

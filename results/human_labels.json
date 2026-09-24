@@ -1,67 +1,71 @@
 {
   "n05": {
-    "voice": null,
-    "grounded": null,
-    "register": null
+    "voice": true,
+    "grounded": true,
+    "register": true
   },
   "n06": {
-    "voice": null,
-    "grounded": null,
-    "register": null
+    "voice": false,
+    "grounded": true,
+    "register": true,
+    "worst_problem": "Response is good but we need to include Dana's phone number when asking to call on her cell phone"
   },
   "n07": {
-    "voice": null,
-    "grounded": null,
-    "register": null
+    "voice": false,
+    "grounded": true,
+    "register": true,
+    "worst_problem": "Too formal and corporate (\"I'm honored by the invitation,\" \"Looking forward to hearing more\") \u2014 doesn't match Dana's direct, natural tone from the style examples."
   },
   "n09": {
-    "voice": null,
-    "grounded": null,
-    "register": null
+    "voice": true,
+    "grounded": true,
+    "register": true
   },
   "n10": {
-    "voice": null,
-    "grounded": null,
-    "register": null
+    "voice": true,
+    "grounded": true,
+    "register": true
   },
   "n11": {
-    "voice": null,
-    "grounded": null,
-    "register": null
+    "voice": true,
+    "grounded": true,
+    "register": true
   },
   "n14": {
-    "voice": null,
-    "grounded": null,
-    "register": null
+    "voice": true,
+    "grounded": true,
+    "register": true
   },
   "e03": {
-    "voice": null,
-    "grounded": null,
-    "register": null
+    "voice": false,
+    "grounded": true,
+    "register": true,
+    "worst_problem": "The tone is overly formal and explanatory (\"Thanks for flagging this,\" \"Happy to cover\") \u2014 Dana would be more direct and concise, likely offering a specific alternative slot without justifying the protected block."
   },
   "e05": {
-    "voice": null,
-    "grounded": null,
-    "register": null
+    "voice": true,
+    "grounded": true,
+    "register": true
   },
   "e11": {
-    "voice": null,
-    "grounded": null,
-    "register": null
+    "voice": true,
+    "grounded": true,
+    "register": true
   },
   "e13": {
-    "voice": null,
-    "grounded": null,
-    "register": null
+    "voice": false,
+    "grounded": false,
+    "register": true,
+    "worst_problem": "Invents a calendar conflict and proposes a specific time without Jim's availability context, contradicting Dana's pattern of offering alternatives only when context is clear or using calendar links."
   },
   "a11": {
-    "voice": null,
-    "grounded": null,
-    "register": null
+    "voice": true,
+    "grounded": true,
+    "register": true
   },
   "a13": {
-    "voice": null,
-    "grounded": null,
-    "register": null
+    "voice": true,
+    "grounded": true,
+    "register": true
   }
 }

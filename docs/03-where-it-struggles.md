@@ -6,17 +6,19 @@ failure you hide is debt.
 
 ## Open struggles (as of v2)
 
-### 0. Voice drift on formal drafts (judge finding, uncalibrated)
+### 0. Voice drift on formal drafts (now calibrated - see iteration log)
 
-The LLM judge fails 5/13 v2 drafts on voice — consistently "too formal /
-corporate" relative to Dana's style corpus — and catches one groundedness
-miss (a decline that invented a specific alternative time without
-availability context). We have deliberately NOT iterated on this yet:
-the judge is uncalibrated, and "the judge is stricter than Dana" is as
-plausible as "the drafts are stiff." Next step is human labels on these 13
-drafts, judge-human agreement per axis, and only then a drafting fix —
-tuning the agent against an unvalidated judge is how you launder a score
-into fake progress.
+The judge flags ~a third of drafts as "too formal/corporate" for Dana's
+voice. Calibration against blind human labels (voice 69% / grounded 92% /
+register 100% agreement) showed the voice axis is underspecified rather
+than the judge simply strict - disagreements run in both directions - and
+revealed judge self-inconsistency on groundedness (it graded e13's
+invented-time draft differently across runs; the human label sides with
+the stricter run). Standing posture: register can gate; grounded needs
+consensus sampling before gating; voice is directional signal pending a
+rubric with more style anchors. The drafts probably ARE somewhat stiff on
+formal externals - but we won't tune drafting against a judge axis that
+two honest readers can't agree on.
 
 ### 1. The model is more suspicious than the policy (e07 — kept on purpose)
 

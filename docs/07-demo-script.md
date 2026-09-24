@@ -27,10 +27,9 @@ Establishing shot first — the inbox view:
 make demo-batch
 ```
 
-> "Five emails through the pipeline: a newsletter archived and a
-> protected-block conflict declined - those two ran on their own; a VIP
-> draft and two escalations queued for approval. Two greens, three ambers -
-> that's the autonomy tiering. Let me show you one in full."
+> "This actually runs five different types of representative emails through the pipeline to show a quick example of the agent at work
+> : a newsletter archived and a protected-block conflict declined - those two ran on their own; 
+> a VIP draft and two escalations queued for approval. Two greens, three ambers - that's the autonomy tiering. Let me show you one in full."
 
 Then the deep dive:
 
@@ -40,12 +39,11 @@ make triage-sample
 
 While it prints, narrate the layers top to bottom:
 
-> "One email, the whole pipeline. Sender profile resolved from the contact
-> directory in code, not by the model. The agent's tool calls - it searched
-> the policy corpus, checked the calendar. Its draft, in the exec's voice.
-> Then the part I care about: the conflict was computed by code, and the
-> governance engine - which is pure Python, not an LLM - stamped this
-> AUTO with a policy citation. The model proposes; code disposes."
+> "One email, which covers the whole pipeline. Sam Porter proposing a "pilot review" meeting invite which confllicts Dana's calendar protected block.
+> The senders profile is resolved from the contact directory in code, not by the model. 
+> The agent's tool calls - it searched the policy, checked the calendar and drafted a rejection response in the exec's voice.
+> Then the part I care about the most: the conflict was computed by code, and the governance engine - which is pure Python, not an LLM - stamped this
+> AUTO with a policy citation."
 
 Point at the green `AUTO - policy §1/§6-auto` line as you say it.
 

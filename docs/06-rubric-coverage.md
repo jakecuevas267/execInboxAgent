@@ -20,7 +20,7 @@ built. Honest status per item; gaps are named, not hidden.
 
 | Extra | Status | Notes |
 |---|---|---|
-| Judge calibration vs human labels | 🟡 harness built, labels pending | evals/judge.py --calibrate; needs results/human_labels.json (Jake's 13 draft labels). Closes to ✅ with ~20 min of labeling |
+| Judge calibration vs human labels | ✅ | 13 drafts labeled blind; agreement voice 69% / grounded 92% / register 100%. Calibration priced the axes: register gateable, grounded needs consensus sampling (judge self-inconsistent on e13), voice demoted to directional. docs/05 Iteration 5 |
 | Results in useful slices | ✅ | category / difficulty / expected-label / adversarial, printed every run |
 | Evaluating tool calls / trajectories | ✅ | `trajectory_match` (must_call ⊆ called); executor gating verified via executed/queued/denied lists |
 | Intentionally tricky examples | ✅ | 15 adversarial cases: injection in invite location, typosquat spoofs, CEO-fraud wire, buried confidential ask, fake governance-approval marker |
