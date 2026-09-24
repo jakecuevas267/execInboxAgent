@@ -28,7 +28,7 @@ threshold-gaming suspicion vs. the written policy) and e06 (see below —
 a fix we attempted, then withdrew after reading the model's reasoning).
 
 (v0 was re-baselined after two eval-spec fixes; the original run scored
-74% — see the [iteration log](05-iteration-log.md) for both.)
+74% — see the [iteration log](05-eval-iteration-log.md) for both.)
 
 ## What the evals changed, concretely
 

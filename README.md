@@ -25,7 +25,7 @@ escalation rationale proved the better security posture. Full detail:
 - **[How we know it's working](docs/02-how-we-know-its-working.md)** — datasets & evaluator choices
 - **[Where it struggles](docs/03-where-it-struggles.md)** — known failures & limitations
 - **[How the evals improved it](docs/04-how-evals-improved-it.md)** — before/after, change-by-change
-- **[Iteration log](docs/05-iteration-log.md)** — every discovery, failure, and remedy, chronologically
+- **[Iteration log](docs/05-eval-iteration-log.md)** — every discovery, failure, and remedy, chronologically
 
 ## Architecture (the built slice)
 
