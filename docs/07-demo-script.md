@@ -1,6 +1,7 @@
 # Demo run-of-show (recording + live interview)
 
-Target: ~4.5 minutes recorded. Same beats work live in the interview.
+Target: ~5:15 recorded (per the timing budget below). Same beats work
+live in the interview.
 
 (Personal pickup checklist: see NEXT_STEPS.md in the repo root.)
 
@@ -162,7 +163,8 @@ make test
 ```
 
 > "And the deterministic layer - governance boundaries, calendar math,
-> spoof detection - is 61 plain unit tests. Two seconds, no API key."
+> spoof detection, the production-seam connectors - is 65 plain unit
+> tests. A few seconds, no API key."
 
 ## Beat 4 — the failure I kept (~30s)
 
