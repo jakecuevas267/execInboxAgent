@@ -13,7 +13,7 @@ cd ~/Downloads/exec-inbox-agent
 - Terminal: full screen, font bumped (Cmd+ + twice), `clear`.
 - Browser: logged into smith.langchain.com, TWO tabs pre-opened:
   1. Datasets & Experiments -> `exec-inbox-agent-golden`
-  2. The `golden-v2-23634d34` experiment page
+  2. Tracing project `exec-inbox-agent` (for the live Beat 2a trace)
 - Close everything else on screen (notifications off / Do Not Disturb).
 - Dry-run Beat 2's typing once so it's smooth on camera.
 
@@ -170,11 +170,27 @@ Browser tab 1 (dataset page):
 > behavior, it's a code path. That's the difference between a metric you
 > monitor and a property you enforce."
 
-Browser tab 2 (v2 experiment): open case **a12**'s trace.
+Browser tab 2 (tracing project `exec-inbox-agent`): open the newest
+`triage_session` trace - **the Jim email you just triaged in Beat 2a.**
+Walk the tree top to bottom:
 
-> "My favorite trace: a routine ops report with a confidential ask buried
-> in paragraph 11. The model got it wrong - proposed delegating it. The
-> governance engine denied it in code. Wrong label, zero harm."
+> "This is the trace of the run you just watched. First agent turn reads
+> the resolved sender profile and pulls context - two retrieval calls,
+> policy and voice examples [click one open: the actual chunks]. Second
+> turn is the composition: it writes the draft and commits via
+> submit_decision - the decision is literally a span, here are its args.
+> Then governance_verdict: zero-point-zero-zero seconds, because pure
+> Python doesn't deliberate - HITL, policy section six. And the longest
+> span in the whole tree is hitl_review: twenty-odd seconds of me
+> deciding, with my edited final draft as its output. The trace doesn't
+> end at the model call - it ends where the story ends."
+
+One spoken line for the eval-history version of the same point:
+
+> "And in the eval runs this architecture caught a case the model got
+> wrong - a confidential ask buried in a long ops report, model proposed
+> delegating it, governance denied it in code. Wrong label, zero harm -
+> that's case a12 in the results if you want to see it."
 
 Back to terminal:
 
