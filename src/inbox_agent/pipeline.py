@@ -57,6 +57,12 @@ class InboxPipeline:
         self.agent = build_agent(index, self.calendar, version)
 
     def run_email(self, case_id: str, email: dict) -> RunRecord:
+        # `version` selects a hardening ERA of the harness (v0 naive -> v2
+        # guarded), kept runtime-selectable so before/after evals reproduce
+        # with a flag instead of a git checkout. It is unrelated to runtime
+        # looping - each email flows through once; only the agent's internal
+        # tool-calling loops. Demos default to v2; v0 stays runnable for
+        # live naive-vs-hardened comparison.
         # 1. Gateway scan (hardened pipeline only).
         level = {"v0": 0, "v1": 1}.get(self.version, 2)
         gw_flags: frozenset = frozenset()
