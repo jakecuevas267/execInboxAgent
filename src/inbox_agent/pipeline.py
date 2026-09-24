@@ -12,6 +12,8 @@ before/after eval story.
 import re
 from dataclasses import asdict, dataclass, field
 
+from langsmith import traceable
+
 from . import gateway as gateway_mod
 from .agent import Decision, build_agent, extract_decision
 from .calendar_svc import CalendarService
@@ -104,11 +106,13 @@ class InboxPipeline:
 
         flags = frozenset(decision.flags) | gw_flags
 
-        # 4. Governance.
-        verdict: Verdict = govern(ProposedAction(
-            kind=decision.action_kind, sender=sender, flags=flags,
+        # 4. Governance - traced as its own span so the verdict (and not
+        # just the model call) is visible in every LangSmith trace tree.
+        verdict: Verdict = _traced_govern(
+            kind=decision.action_kind, sender=asdict(sender), flags=sorted(flags),
             protected_block_conflict=conflict, amount=amount,
-        ))
+            _sender=sender, _flags=flags,
+        )
 
         # 5. Executor (mock): only AUTO verdicts execute; everything else queues.
         record = RunRecord(
@@ -126,6 +130,18 @@ class InboxPipeline:
         else:
             record.denied.append(action)
         return record
+
+
+@traceable(name="governance_verdict", run_type="chain")
+def _traced_govern(kind: str, sender: dict, flags: list,
+                   protected_block_conflict: bool, amount,
+                   _sender: Sender = None, _flags: frozenset = frozenset()) -> Verdict:
+    """Thin traced wrapper: primitive args render legibly in the LangSmith
+    UI; the underscored originals carry the real typed inputs."""
+    v = govern(ProposedAction(kind=kind, sender=_sender, flags=_flags,
+                              protected_block_conflict=protected_block_conflict,
+                              amount=amount))
+    return v
 
 
 def render_email(email: dict) -> str:

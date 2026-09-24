@@ -86,13 +86,15 @@ def show(record, identity, email) -> None:
               f"not an approval away{RESET}")
 
 
-def hitl_review(record) -> None:
+def hitl_review(record) -> dict | None:
     """Close the loop: Dana works her queue. Every choice is recorded -
-    in production, this is the labeling pipeline."""
+    in production, this is the labeling pipeline. Traced, so the HUMAN
+    outcome appears in the same LangSmith trace as the agent run - a
+    trace that stops at the model call hides how the story ended."""
     import datetime
 
     if not record.queued or not sys.stdin.isatty():
-        return
+        return None
     action = record.queued[0]
     print(f"\n{BOLD}=== Dana's approval queue (you are Dana) ==={RESET}")
     choice = ""
@@ -112,17 +114,43 @@ def hitl_review(record) -> None:
         record.denied.append(record.queued.pop(0))
         print(f"  {RED}{BOLD}REJECTED{RESET} - nothing leaves the building")
 
+    entry = {"ts": datetime.datetime.now().isoformat(timespec="seconds"),
+             "case_id": record.case_id, "action": action["kind"],
+             "human_decision": {"a": "approved", "e": "approved_with_edit",
+                                "r": "rejected"}[choice],
+             "edited": edited}
     log_path = ROOT / "results" / "hitl_log.json"
     log = json.loads(log_path.read_text()) if log_path.exists() else []
-    log.append({"ts": datetime.datetime.now().isoformat(timespec="seconds"),
-                "case_id": record.case_id, "action": action["kind"],
-                "human_decision": {"a": "approved", "e": "approved_with_edit",
-                                   "r": "rejected"}[choice],
-                "edited": edited})
+    log.append(entry)
     log_path.parent.mkdir(exist_ok=True)
     log_path.write_text(json.dumps(log, indent=2))
     print(f"  {DIM}recorded -> results/hitl_log.json - in production every one of "
           f"these is a labeled eval example (edits are voice gold){RESET}")
+    return entry
+
+
+def triage_session(pipeline, email: dict) -> dict:
+    """One traced parent for the WHOLE session: the agent run, the
+    governance verdict, and the human's HITL decision land in one
+    LangSmith trace tree - the trace shows how the story ended, not just
+    what the model said."""
+    from langsmith import traceable
+
+    @traceable(name="triage_session", run_type="chain")
+    def _session(email: dict) -> dict:
+        record = pipeline.run_email("live-demo", email)
+        show(record, pipeline.identity, email)
+        review = _traced_review(record)
+        return {"triage_label": record.decision["triage_label"],
+                "verdict": record.verdict_decision,
+                "human_decision": (review or {}).get("human_decision", "n/a (nothing queued or non-interactive)"),
+                "draft_edited": (review or {}).get("edited", False)}
+
+    @traceable(name="hitl_review", run_type="chain")
+    def _traced_review(record):
+        return hitl_review(record)
+
+    return _session(email)
 
 
 # The "inbox view": five cases that tell the whole story in five rows -
@@ -174,9 +202,7 @@ def main():
     email = json.loads(Path(args.file).read_text()) if args.file else prompt_email()
     if "email" in email:  # allow passing a whole dataset case file
         email = email["email"]
-    record = pipeline.run_email("live-demo", email)
-    show(record, pipeline.identity, email)
-    hitl_review(record)
+    triage_session(pipeline, email)
 
 
 if __name__ == "__main__":
