@@ -1,6 +1,6 @@
 # Demo run-of-show (recording + live interview)
 
-Target: ~5:15 recorded (per the timing budget below). Same beats work
+Target: ~5:45 recorded (per the timing budget below). Same beats work
 live in the interview.
 
 (Personal pickup checklist: see NEXT_STEPS.md in the repo root.)
@@ -22,22 +22,22 @@ cd ~/Downloads/exec-inbox-agent
 ## Beat 0 — preface (~30s, camera on terminal, before any command)
 
 > "This is an executive inbox agent: it triages a CEO's email - archives
-> the noise, drafts replies in her voice, delegates to the right person,
-> escalates what needs her - and it's allowed to act on its own only
+> the noise, drafts replies in her voice and delegates to the right person,
+> It also escalates what needs her - and it's allowed to act on its own only
 > where correctness is provable in code. Everything outbound waits for
-> her approval. The question the project answers is: how much autonomy
+> her approval. The main question the project answers is: how much autonomy
 > has this agent earned, and how do the evals prove it?
 >
-> Quick orientation before I run anything. Everything you'll see lives in
-> a synthetic world I built first: a fictional CEO - Dana Whitfield - with
+> Real quick before I run anything. Everything you'll see lives in
+> a make believe world I built first: a fictional CEO - Dana Whitfield - with
 > a written policy doc, a style corpus, a contact directory, and a
-> calendar, all fixtures in the repo. The emails come from a 50-case
-> golden dataset I wrote before the agent existed - or from my keyboard,
-> live. No real mailbox, on purpose: it keeps every trace shareable,
+> calendar, which are all fixtures in the repo. The emails come from a 50-case
+> golden dataset I wrote before the agent existed or typed live at the keyboard, which you'll see.
+> No real mailbox, on purpose: it keeps every trace shareable,
 > every run reproducible, and it meant I could write the eval
-> expectations down before building. And it's a terminal because the
-> product here is the pipeline and its evaluation harness - a mailbox UI
-> is commodity; the trust machinery is the work."
+> expectations down before building. There's a connector seam where a real mailbox plugs in for production - stubbed deliberately.
+> And it's a terminal because the
+> product here is the pipeline and its evaluation harness."
 
 Then straight into `make demo-batch`.
 
@@ -211,6 +211,6 @@ Stop recording there.
 | 3 - LangSmith compare + a12 + make test | 3:45-5:15 |
 | 4 - e07 close | 5:15-5:45 |
 
-(~5:15 total - still "brief"; trim Beat 3's a12 walkthrough if you want
+(~5:45 total - still "brief"; trim Beat 3's a12 walkthrough if you want
 to land under 5. `make triage-vip` exists as a canned backup for 2a if a
 live run ever misbehaves.)
