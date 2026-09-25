@@ -87,6 +87,11 @@ make judge                 # LLM judge over the drafts
 Models: agent `claude-sonnet-5` (set `AGENT_MODEL` to change), judge
 `claude-haiku-4-5` — separate models on purpose.
 
+**Reviewers:** everything under "Traces & evaluation runs" below is
+viewable with no setup. API keys are needed only to re-run the agent or
+evals — use your own Anthropic + LangSmith keys (the repo has never
+contained credentials). Happy to do a live walkthrough on request.
+
 ## Traces & evaluation runs
 
 Every agent run is traced to LangSmith (project `exec-inbox-agent`) when
@@ -103,7 +108,9 @@ rationales, tool calls, checks) is committed under `results/`.
 - Golden dataset: https://smith.langchain.com/public/150a683c-9796-418e-9490-fe612b6e024d/d
 - Experiment `golden-v0` (naive baseline) shown in the link above
 - Experiment `golden-v2` (final) shown in the link above
-- I cant figure out how to share the live traces via sharable link
+- Traces from the video recorded demo run:
+- Jim Calloway test : https://smith.langchain.com/public/71ca9b50-94dd-410f-bb22-2c4782195465/r/01a0d582-4049-7030-a6e6-d23d5c63fb48?start_time=2026-09-24T22%3A21%3A18.281896Z
+- Priya Shah test : https://smith.langchain.com/public/4cbe93ab-d954-4bda-a108-95d82bf87a04/r/01a0d584-8e57-7932-a3f1-f530118ce34c?start_time=2026-09-24T22%3A23%3A49.33544Z
 
 Two traces worth pulling up first:
 - **a12** — the model wrongly tries to delegate a message with a buried
