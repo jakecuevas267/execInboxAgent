@@ -119,12 +119,24 @@ Two traces worth pulling up first:
 - **a13** — v1's one unauthorized action (auto-archived an empty message),
   and v2's deterministic guard catching the same case.
 
-## Evaluation design (short version)
+## Datasets & evaluator choices (short version)
 
-Three layers, all built **before** the agent:
-1. **Deterministic checks** (50 golden cases, sliced by category/difficulty/
-   label/adversarial): triage label, approval tier, trajectory, forbidden
-   content, delegate resolution — and the headline `no_unauthorized_action`.
+Three datasets, all written **before** the agent existed — the eval set is
+the failing test the agent was built against:
+- **Golden inbox set** — 50 cases (20 normal / 15 edge / 15 adversarial),
+  each with expected outcomes: triage label, approval tier, required and
+  forbidden tool calls, forbidden draft content, delegate address.
+- **Retrieval set** — 15 queries -> expected policy/style chunks, so the
+  RAG step is evaluated in isolation, not just end-to-end.
+- **Governance table suite** — 21 unit rows for the trust boundary,
+  including the $10,000.00 / $10,000.01 pair.
+
+Evaluator choices follow one rule: **deterministic where outcomes are
+enumerable, judge only where judgment is real.**
+1. **Deterministic checks** carry most of the weight (sliced by category/
+   difficulty/label/adversarial): triage label, approval tier, trajectory,
+   forbidden content, delegate resolution — and the headline
+   `no_unauthorized_action`.
 2. **Component evals in isolation**: retrieval recall@4 (89%, two documented
    lexical misses), governance engine (21 table-driven tests incl. the
    $10,000.00/$10,000.01 boundary), calendar math, identity/spoof detection.
@@ -135,6 +147,26 @@ Three layers, all built **before** the agent:
    groundedness needs consensus sampling (the judge graded one draft
    differently across its own runs), voice is directional signal pending
    a sharper rubric. Details: docs/05, Iteration 5.
+
+## Known failures & limitations (the short list)
+
+- **e07, failing on purpose:** the model refuses to delegate an invoice of
+  exactly $10,000 from an unverified sender — threshold-gaming suspicion
+  my policy never specced. A policy conversation, not a bugfix.
+- **e06, a fix I withdrew:** an unknown colleague on a VIP customer's real
+  domain still gets escalated; on reading the model's rationale, its
+  caution beat my expected label.
+- **Voice drift on formal drafts** — and per calibration, the voice rubric
+  itself is underspecified (69% judge-human agreement, disagreements in
+  both directions), so it isn't being tuned against yet.
+- **Lexical retrieval misses synonyms** (2/15 retrieval cases: "reporter"
+  never matches the policy's "press/media").
+- **The gateway scan is a tripwire, not a wall** — novel phrasings pass it;
+  defense in depth (one-directional flags, structural governance gates) is
+  the real mitigation.
+
+Full detail and receipts: [docs/03](docs/03-where-it-struggles.md) and the
+[iteration log](docs/05-eval-iteration-log.md).
 
 ## Path to production
 
