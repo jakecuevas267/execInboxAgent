@@ -3,78 +3,212 @@
     "voice": true,
     "grounded": true,
     "register": true,
+    "lint_passed": true,
+    "lint_violations": [],
+    "judge_voice": true,
+    "samples": 3,
+    "grounded_votes": [
+      true,
+      true,
+      true
+    ],
     "worst_problem": "none"
   },
   "n06": {
     "voice": true,
     "grounded": true,
     "register": true,
+    "lint_passed": true,
+    "lint_violations": [],
+    "judge_voice": true,
+    "samples": 3,
+    "grounded_votes": [
+      true,
+      true,
+      true
+    ],
     "worst_problem": "none"
   },
   "n07": {
     "voice": false,
     "grounded": true,
     "register": true,
-    "worst_problem": "Reads too formal and earnest (\"I'm honored by the invitation,\" \"Looking forward to hearing more\") \u2014 Dana would be warmer but more direct, and would give a yes/no faster rather than ask preliminary questions before committing."
+    "lint_passed": false,
+    "lint_violations": [
+      "filler: banned phrase: \"i'm honored\""
+    ],
+    "judge_voice": false,
+    "samples": 3,
+    "grounded_votes": [
+      true,
+      true,
+      true
+    ],
+    "worst_problem": "Opens with throat-clearing (\"thank you so much for the invitation, I'm honored\") instead of leading with a direct decision, and adds filler (\"Looking forward to hearing more\") that Dana never uses.</problem>\n</invoke>"
   },
   "n09": {
     "voice": false,
-    "grounded": true,
+    "grounded": false,
     "register": true,
-    "worst_problem": "Opens with corporate filler (\"thanks for setting this up\") instead of Dana's direct, first-name style; also too wordy with \"Looking forward to digging into\" instead of letting the action speak for itself."
+    "lint_passed": false,
+    "lint_violations": [
+      "filler: banned phrase: 'thanks for setting this up'"
+    ],
+    "judge_voice": true,
+    "samples": 3,
+    "grounded_votes": [
+      false,
+      false,
+      false
+    ],
+    "worst_problem": "The draft offers specific calendar slots (\"10:00-11:00 that same day, or 10:00-12:00 on the 9th\") without dates, making them meaningless and ungrounded in the retrieved context which provides full date+time options."
   },
   "n10": {
+    "voice": false,
+    "grounded": false,
+    "register": true,
+    "lint_passed": false,
+    "lint_violations": [
+      "filler: banned phrase: 'thanks for setting this up'"
+    ],
+    "judge_voice": false,
+    "samples": 3,
+    "grounded_votes": [
+      false,
+      false,
+      false
+    ],
+    "worst_problem": "The draft proposes times with no basis in the retrieved calendar data \u2014 10-11am Tuesday and Friday 10am-12pm are not in the open_slots_hint list, violating the grounding requirement."
+  },
+  "n11": {
     "voice": true,
     "grounded": true,
     "register": true,
+    "lint_passed": true,
+    "lint_violations": [],
+    "judge_voice": true,
+    "samples": 3,
+    "grounded_votes": [
+      true,
+      true,
+      true
+    ],
     "worst_problem": "none"
-  },
-  "n11": {
-    "voice": false,
-    "grounded": true,
-    "register": true,
-    "worst_problem": "Overly formal/corporate tone (\"Thanks for setting this up\") \u2014 Dana would skip pleasantries and lead with the constraint, using first name and tighter language (\"Leah \u2014 that slot conflicts with board prep\")."
   },
   "n14": {
     "voice": true,
     "grounded": true,
     "register": true,
+    "lint_passed": true,
+    "lint_violations": [],
+    "judge_voice": true,
+    "samples": 3,
+    "grounded_votes": [
+      true,
+      true,
+      true
+    ],
     "worst_problem": "none"
   },
   "e03": {
     "voice": false,
     "grounded": true,
     "register": true,
-    "worst_problem": "Tone is too formal/apologetic (\"Thanks for flagging this\") and the response is over-explanatory; Dana would be more direct and concise, likely offering a single clear alternative rather than two options."
+    "lint_passed": false,
+    "lint_violations": [
+      "filler: banned phrase: 'thanks for reaching out'"
+    ],
+    "judge_voice": true,
+    "samples": 3,
+    "grounded_votes": [
+      true,
+      true,
+      true
+    ],
+    "worst_problem": "none"
   },
   "e05": {
-    "voice": true,
-    "grounded": true,
+    "voice": false,
+    "grounded": false,
     "register": true,
-    "worst_problem": "none"
+    "lint_passed": true,
+    "lint_violations": [],
+    "judge_voice": false,
+    "samples": 3,
+    "grounded_votes": [
+      false,
+      false,
+      false
+    ],
+    "worst_problem": "Proposes 10:30 on the 9th when calendar shows only 10:00-12:00 open; 10:30 is a specific time with no basis in the slot data provided."
   },
   "e11": {
-    "voice": true,
+    "voice": false,
     "grounded": true,
     "register": true,
-    "worst_problem": "none"
+    "lint_passed": false,
+    "lint_violations": [
+      "closing: must end with '- Dana' as the last line",
+      "length: 3 paragraphs; max 2"
+    ],
+    "judge_voice": false,
+    "samples": 3,
+    "grounded_votes": [
+      true,
+      true,
+      true
+    ],
+    "worst_problem": "Opens with throat-clearing (\"Before I make the call, can you send me...\") instead of leading with a decision or clear direction, violating Dana's direct style established in the corpus."
   },
   "e13": {
-    "voice": true,
+    "voice": false,
     "grounded": true,
     "register": true,
-    "worst_problem": "none"
+    "lint_passed": false,
+    "lint_violations": [
+      "filler: banned phrase: 'thanks for flagging'"
+    ],
+    "judge_voice": true,
+    "samples": 3,
+    "grounded_votes": [
+      false,
+      true,
+      true
+    ],
+    "worst_problem": "The draft cites \"10:00-11:00 that same day or 10:00-12:00 on the 9th\" without specifying the dates\u2014Jim won't know which calendar days these slots refer to, making the offer unactionable."
   },
   "a11": {
-    "voice": true,
+    "voice": false,
     "grounded": true,
     "register": true,
+    "lint_passed": false,
+    "lint_violations": [
+      "filler: banned phrase: 'thanks for setting this up'"
+    ],
+    "judge_voice": true,
+    "samples": 3,
+    "grounded_votes": [
+      true,
+      true,
+      true
+    ],
     "worst_problem": "none"
   },
   "a13": {
-    "voice": true,
+    "voice": false,
     "grounded": true,
     "register": true,
+    "lint_passed": false,
+    "lint_violations": [
+      "filler: banned phrase: 'thanks for reaching out'"
+    ],
+    "judge_voice": true,
+    "samples": 3,
+    "grounded_votes": [
+      true,
+      true,
+      true
+    ],
     "worst_problem": "none"
   }
 }

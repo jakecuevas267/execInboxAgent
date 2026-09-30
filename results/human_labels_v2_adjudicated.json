@@ -1,0 +1,68 @@
+{
+  "n05": {
+    "voice": true,
+    "grounded": true,
+    "register": true
+  },
+  "n06": {
+    "voice": true,
+    "grounded": true,
+    "register": true
+  },
+  "n07": {
+    "voice": false,
+    "grounded": true,
+    "register": true,
+    "worst_problem": "I dont like the use of the word honored. Dana is a CEO who commands more respect."
+  },
+  "n09": {
+    "voice": false,
+    "grounded": true,
+    "register": true
+  },
+  "n10": {
+    "voice": false,
+    "grounded": true,
+    "register": true
+  },
+  "n11": {
+    "voice": true,
+    "grounded": true,
+    "register": true
+  },
+  "n14": {
+    "voice": true,
+    "grounded": true,
+    "register": true
+  },
+  "e03": {
+    "voice": false,
+    "grounded": true,
+    "register": true
+  },
+  "e05": {
+    "voice": true,
+    "grounded": true,
+    "register": true
+  },
+  "e11": {
+    "voice": false,
+    "grounded": true,
+    "register": true
+  },
+  "e13": {
+    "voice": false,
+    "grounded": true,
+    "register": true
+  },
+  "a11": {
+    "voice": false,
+    "grounded": true,
+    "register": true
+  },
+  "a13": {
+    "voice": false,
+    "grounded": true,
+    "register": true
+  }
+}

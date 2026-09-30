@@ -75,7 +75,7 @@ built and proven.
 make setup                 # venv + deps (Python 3.12+)
 cp .env.example .env       # add ANTHROPIC_API_KEY (+ LangSmith key for traces)
 
-make test                  # 65 unit tests, no API key needed
+make test                  # 73 unit tests, no API key needed
 make retrieval-eval        # RAG component eval, no API key needed
 make demo-batch            # inbox view: 5 representative emails, one line each
 make triage-sample         # one email end to end (auto-decline with draft)
@@ -140,13 +140,15 @@ enumerable, judge only where judgment is real.**
 2. **Component evals in isolation**: retrieval recall@4 (89%, two documented
    lexical misses), governance engine (21 table-driven tests incl. the
    $10,000.00/$10,000.01 boundary), calendar math, identity/spoof detection.
-3. **LLM judge** for what genuinely needs judgment — voice, groundedness,
-   register of drafts — calibrated against 13 blind human labels:
-   agreement register 100%, groundedness 92%, voice 69%. Calibration
-   priced the axes rather than validating the judge: register can gate,
-   groundedness needs consensus sampling (the judge graded one draft
-   differently across its own runs), voice is directional signal pending
-   a sharper rubric. Details: docs/05, Iteration 5.
+3. **LLM judge** for what genuinely needs judgment — a two-generation
+   story. Rubric v1 calibration (register 100% / grounded 92% / voice
+   69%) showed voice was underspecified; rubric v2 split the enumerable
+   half into a deterministic style lint, anchored the residue, added
+   3-sample consensus, and gave the judge the retrieved context it had
+   never seen. Re-elicited blind labels were mechanically audited (7
+   label errors adjudicated) and the judge lost 3 grounded disputes on
+   over-literality. **Final: voice 92%, grounded 77%, register 100%.**
+   Details: docs/05 Iterations 5-6, docs/08.
 
 ## Known failures & limitations (the short list)
 
@@ -216,7 +218,7 @@ src/         inbox_agent: agent, pipeline, governance, gateway, identity,
              cli (interactive triage + HITL approve/edit/reject)
 demo/        canned emails for the triage CLI
 evals/       run_eval.py, run_retrieval_eval.py, judge.py, langsmith_sync.py
-tests/       65 unit tests (governance, calendar, identity, gateway,
+tests/       73 unit tests (governance, calendar, identity, gateway,
              retrieval, connectors)
 results/     per-version eval output + judge grades
 docs/        the four take-home questions + iteration log + full design

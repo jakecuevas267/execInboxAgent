@@ -50,6 +50,8 @@ dataset is code too.
 
 ### 2. Retrieval set — `datasets/retrieval_eval.json` (15 queries)
 
+local run - make retrieval-eval
+
 **What it is:** query -> expected policy/style chunk ids, recall@4,
 runnable with no API key.
 
@@ -105,15 +107,15 @@ from hiding exactly the failures that matter.
 register of drafts. Three near-binary axes, not a 1–10 score, for the
 same weak-owner reason.
 
-**Calibration (blind, 13 drafts):** register **100%**, grounded **92%**,
-voice **69%**. Calibration didn't validate the judge — it **priced** it:
-- **register**: trustworthy enough to gate today.
-- **grounded**: near-trustworthy, but the judge contradicted *itself* on
+**Calibration history:** rubric v1 (blind, 13 drafts): register 100%,
+grounded 92%, voice 69% — which priced the axes:
+- **register**: (tone) trustworthy enough to gate today. 
+- **grounded**: (factual) near-trustworthy, but the judge contradicted *itself* on
   e13 across runs (failed a draft for inventing a meeting time, passed
   the same draft on rerun; the human label sides with the stricter run).
   Single-sample judging can't gate this axis — production needs
   consensus sampling.
-- **voice**: disagreements ran in *both* directions, so the rubric is
+- **voice**: (Dana) disagreements ran in *both* directions, so the rubric is
   underspecified, not the judge strict. Demoted to directional signal;
   the flagged voice drift is deliberately un-tuned — iterating against
   an axis two honest readers split on launders the judge's taste into

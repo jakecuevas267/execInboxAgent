@@ -45,6 +45,10 @@ class RunRecord:
     queued: list = field(default_factory=list)     # actions waiting for Dana (hitl tier)
     denied: list = field(default_factory=list)     # actions refused (deny tier)
     tool_calls: list = field(default_factory=list)
+    # Tool OUTPUTS (not just calls): what the model actually retrieved.
+    # Added in Iteration 6 - the anchored grounded rubric requires the
+    # judge to see the retrieved context, and it was never captured.
+    tool_results: list = field(default_factory=list)
     error: str | None = None
 
     def to_dict(self):
@@ -90,6 +94,11 @@ class InboxPipeline:
             for m in result["messages"]
             for tc in (getattr(m, "tool_calls", None) or [])
         ]
+        tool_results = [
+            {"name": getattr(m, "name", "?"), "content": str(m.content)[:800]}
+            for m in result["messages"]
+            if getattr(m, "type", "") == "tool" and getattr(m, "name", "") != "submit_decision"
+        ]
 
         # 3. Facts resolved in code (v1) or taken from the model (v0).
         invite = email.get("invite")
@@ -120,6 +129,7 @@ class InboxPipeline:
             gateway_flags=sorted(gw_flags), resolved_conflict=conflict, resolved_amount=amount,
             verdict_decision=verdict.decision.value, verdict_reason=verdict.reason,
             verdict_policy_ref=verdict.policy_ref, tool_calls=tool_calls,
+            tool_results=tool_results,
         )
         action = {"kind": decision.action_kind, "draft_text": decision.draft_text,
                   "delegate_to": decision.delegate_to}

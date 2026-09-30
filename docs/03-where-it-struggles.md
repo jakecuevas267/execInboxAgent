@@ -6,19 +6,18 @@ failure you hide is debt.
 
 ## Open struggles (as of v2)
 
-### 0. Voice drift on formal drafts (now calibrated - see iteration log)
+### 0. Voice drift on formal drafts (RESOLVED into a defined standard - Iteration 6)
 
-The judge flags ~a third of drafts as "too formal/corporate" for Dana's
-voice. Calibration against blind human labels (voice 69% / grounded 92% /
-register 100% agreement) showed the voice axis is underspecified rather
-than the judge simply strict - disagreements run in both directions - and
-revealed judge self-inconsistency on groundedness (it graded e13's
-invented-time draft differently across runs; the human label sides with
-the stricter run). Standing posture: register can gate; grounded needs
-consensus sampling before gating; voice is directional signal pending a
-rubric with more style anchors. The drafts probably ARE somewhat stiff on
-formal externals - but we won't tune drafting against a judge axis that
-two honest readers can't agree on.
+Rubric v2 (Iteration 6) split voice into a deterministic style lint
+(the enumerable half - unit-tested, Dana's corpus examples pass) plus a
+narrowed, anchored judge residue, added 3-sample consensus for grounded,
+and equipped the judge with the retrieved context it had never been
+shown. Final calibration: voice 92%, grounded 77% (all three
+disagreements adjudicated human-wins - judge over-literality, wording
+fixed in v2.1), register 100%. What remains open: the DRAFTS still fail
+the lint frequently (filler habit) - now that the standard is defined and
+calibrated, tuning the drafting prompt against it is licensed, and is
+the natural next iteration.
 
 ### 1. The model is more suspicious than the policy (e07 — kept on purpose)
 

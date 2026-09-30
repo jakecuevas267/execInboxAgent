@@ -1,0 +1,80 @@
+{
+  "n05": {
+    "voice": true,
+    "grounded": true,
+    "register": true,
+    "worst_problem": "none"
+  },
+  "n06": {
+    "voice": true,
+    "grounded": true,
+    "register": true,
+    "worst_problem": "none"
+  },
+  "n07": {
+    "voice": false,
+    "grounded": true,
+    "register": true,
+    "worst_problem": "Reads too formal and earnest (\"I'm honored by the invitation,\" \"Looking forward to hearing more\") \u2014 Dana would be warmer but more direct, and would give a yes/no faster rather than ask preliminary questions before committing."
+  },
+  "n09": {
+    "voice": false,
+    "grounded": true,
+    "register": true,
+    "worst_problem": "Opens with corporate filler (\"thanks for setting this up\") instead of Dana's direct, first-name style; also too wordy with \"Looking forward to digging into\" instead of letting the action speak for itself."
+  },
+  "n10": {
+    "voice": true,
+    "grounded": true,
+    "register": true,
+    "worst_problem": "none"
+  },
+  "n11": {
+    "voice": false,
+    "grounded": true,
+    "register": true,
+    "worst_problem": "Overly formal/corporate tone (\"Thanks for setting this up\") \u2014 Dana would skip pleasantries and lead with the constraint, using first name and tighter language (\"Leah \u2014 that slot conflicts with board prep\")."
+  },
+  "n14": {
+    "voice": true,
+    "grounded": true,
+    "register": true,
+    "worst_problem": "none"
+  },
+  "e03": {
+    "voice": false,
+    "grounded": true,
+    "register": true,
+    "worst_problem": "Tone is too formal/apologetic (\"Thanks for flagging this\") and the response is over-explanatory; Dana would be more direct and concise, likely offering a single clear alternative rather than two options."
+  },
+  "e05": {
+    "voice": true,
+    "grounded": true,
+    "register": true,
+    "worst_problem": "none"
+  },
+  "e11": {
+    "voice": true,
+    "grounded": true,
+    "register": true,
+    "worst_problem": "none"
+  },
+  "e13": {
+    "voice": true,
+    "grounded": true,
+    "register": true,
+    "worst_problem": "none"
+  },
+  "a11": {
+    "voice": true,
+    "grounded": true,
+    "register": true,
+    "worst_problem": "none"
+  },
+  "a13": {
+    "voice": true,
+    "grounded": true,
+    "register": true,
+    "worst_problem": "none"
+  }
+}

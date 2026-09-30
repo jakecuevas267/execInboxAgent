@@ -154,3 +154,60 @@ blind to both. **Deliberately not remediated yet:** the judge is
 uncalibrated, so the finding is provisional until human labels establish
 judge-human agreement. Iterating the agent against an unvalidated judge
 would just optimize for the judge's taste. Calibration is the next gate.
+
+## Iteration 6 — rubric v2: definition, audit, adjudication (post-submission)
+
+Prompted by reviewer feedback that the judge rubric was not well-defined.
+The fix followed the project's own rule - deterministic where enumerable,
+judge where judgment is real - and the loop ran further than planned,
+because each step exposed the next problem.
+
+**Discovery L — half of "voice" was never a judgment call.** The v1 voice
+rubric bundled mechanical criteria (paragraph count, the "- Dana" close,
+banned filler, signature blocks) with real judgment. The mechanical half
+moved to code: evals/style_lint.py, unit-tested, with Dana's own corpus
+examples passing as the validity check. The judge's voice axis narrowed
+to the residue (directness/warmth) with pass/fail anchors in the rubric.
+Grounded gained anchors plus 3-sample consensus (the Discovery-K fix).
+Register (100%) was left untouched - you don't rewrite a calibrated axis.
+
+**Discovery M — anchoring the rubric exposed a harness bug.** The
+anchored grounded definition says claims must trace to "the retrieved
+context" - and the judge had NEVER been shown the retrieved context.
+Drafts proposing alternative slots straight from calendar_lookup's
+open_slots_hint were unverifiable by construction, meaning v1's 92%
+grounded agreement was partly the judge shrugging at what it couldn't
+check. Fix: the pipeline now captures tool OUTPUTS (RunRecord.
+tool_results) and the judge prompt includes them. Sharpening a rubric
+found a bug in the judge's inputs.
+
+**Discovery N — the well-defined rubric made labels auditable, and they
+failed the audit.** Fresh eval run (48/50 again; e06/e07 still the two
+kept failures), fresh blind labels under the v2 definitions. Initial
+agreement: voice 38%, grounded 77%, register 100%. The voice number
+looked like regression until a mechanical audit of the LABELS: 7 of 13
+voice labels said true on drafts violating the printed definition (six
+banned-phrase hits; one missing close + over-length). Under the v1
+rubric this would have been unarguable taste variance; under v2 it was
+adjudicable by pointing at the rule. Adjudication: labels corrected to
+the definition (both passes preserved - human_labels_v2.json initial,
+human_labels_v2_adjudicated.json final).
+
+**Discovery O — adjudication cut both ways: the judge lost the grounded
+disputes.** All three grounded disagreements (n09, n10, e05) were judge
+over-literality: failing 10:30 as ungrounded when the shown open range
+was 10:00-12:00, and failing "Tuesday" when the shown slot was
+2026-10-06. Human labels stood; the rubric gained explicit
+range-membership and weekday-resolution wording (v2.1, applies to future
+runs).
+
+**Final calibration (rubric v2, 3-sample consensus, adjudicated labels):
+voice 12/13 (92%), grounded 10/13 (77% - the three disputes are
+documented judge limitations the human won), register 13/13 (100%).**
+Residual voice disagreement: e05 only - a genuine residue-judgment split,
+preserved as such.
+
+The meta-lesson, which is the whole iteration in one sentence: a
+well-defined rubric doesn't end disagreement - it converts disagreement
+from noise into evidence, and the evidence convicted the labels once and
+the judge three times.
